@@ -1,0 +1,31 @@
+.card {
+    position: relative;
+  }
+  
+  .imageContainer {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #f4f4f4;
+  }
+  
+  .productInfo {
+    margin-top: var(--spacing-md);
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .productDetails h3 {
+    font-size: 1rem;
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .productDetails p {
+    color: #666;
+    font-size: 0.875rem;
+  }
+  
+  .price {
+    font-weight: 500;
+  }
