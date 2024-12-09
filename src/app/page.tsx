@@ -1,3 +1,4 @@
+import React from 'react';
 import Navbar from './components/Navbar/Navbar';
 import ProductCard from './components/ProductCard/ProductCard';
 import { products } from './data/products';

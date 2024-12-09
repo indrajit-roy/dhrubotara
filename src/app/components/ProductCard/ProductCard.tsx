@@ -1,3 +1,4 @@
+import React from 'react';
 import Image from 'next/image';
 import styles from './ProductCard.module.css';
 import { Product } from '../../types';
