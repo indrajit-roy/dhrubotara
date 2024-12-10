@@ -8,15 +8,15 @@
 }
 
 .hero h1 {
-  font-family: serif;
-  font-size: 3rem;
-  margin-bottom: 1rem;
+  font-family: var(--font-family-serif);
+  font-size: var(--font-size-2xl);
+  margin-bottom: var(--spacing-md);
 }
 
 .hero p {
-  font-size: 1.25rem;
-  color: #666;
-  margin-bottom: 2rem;
+  font-size: var(--font-size-lg);
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-lg);
 }
 
 .productsSection {
@@ -32,8 +32,15 @@
 }
 
 .sectionTitle {
-  font-family: serif;
-  font-size: 2rem;
+  font-family: var(--font-family-serif);
+  font-size: var(--font-size-xl);
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: var(--spacing-lg);
+}
+
+.button {
+  background-color: var(--primary-color);
+  color: var(--white);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--border-radius-sm);
 }

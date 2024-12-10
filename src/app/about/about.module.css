@@ -1,0 +1,53 @@
+.main {
+  min-height: 100vh;
+}
+
+.aboutSection {
+  padding: 8rem 0 4rem;
+}
+
+.pageTitle {
+  font-family: var(--font-family-serif);
+  font-size: var(--font-size-2xl);
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.content h2 {
+  font-family: var(--font-family-serif);
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.content p {
+  font-size: var(--font-size-lg);
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: var(--spacing-lg);
+}
+
+.valuesSection ul {
+  list-style: none;
+  padding: 0;
+}
+
+.valuesSection li {
+  font-size: var(--font-size-lg);
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-md);
+  padding-left: var(--spacing-lg);
+  position: relative;
+}
+
+.valuesSection li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--primary-color);
+} 

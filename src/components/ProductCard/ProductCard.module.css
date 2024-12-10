@@ -5,9 +5,9 @@
   .imageContainer {
     position: relative;
     aspect-ratio: 1;
-    border-radius: 8px;
+    border-radius: var(--border-radius-md);
     overflow: hidden;
-    background-color: #f4f4f4;
+    background-color: var(--gray-100);
   }
   
   .productInfo {
@@ -17,13 +17,13 @@
   }
   
   .productDetails h3 {
-    font-size: 1rem;
+    font-size: var(--font-size-base);
     margin-bottom: var(--spacing-sm);
   }
   
   .productDetails p {
-    color: #666;
-    font-size: 0.875rem;
+    color: var(--text-muted);
+    font-size: var(--font-size-sm);
   }
   
   .price {

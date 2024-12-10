@@ -1,19 +1,17 @@
 import React from 'react';
-import Navbar from './components/Navbar/Navbar';
-import ProductCard from './components/ProductCard/ProductCard';
-import { products } from './data/products';
+import ProductCard from '@/components/ProductCard/ProductCard';
+import { products } from '@/data/products';
+import Link from 'next/link';
 import styles from './page.module.css';
 
 export default function Home() {
   return (
     <main className={styles.main}>
-      <Navbar />
-      
       <section className={styles.hero}>
         <div className="container">
           <h1>DHRUBO TARA</h1>
           <p>Organic healing with Bengali herbs</p>
-          <button className={styles.button}>Shop Now</button>
+          <Link href="/shop" className={styles.button}>Shop Now</Link>
         </div>
       </section>
 
