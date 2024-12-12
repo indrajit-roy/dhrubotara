@@ -23,7 +23,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <h3>{product.name}</h3>
           <p>{product.description}</p>
         </div>
-        <span className={styles.price}>${product.price}</span>
+        <span className={styles.price}>{product.currencySymbol}{product.price}</span>
       </div>
     </div>
   );

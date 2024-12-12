@@ -1,8 +1,7 @@
 "use client"
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import styles from './Navbar.module.css';
 import Link from 'next/link';
-import SignInButton from '../SignInButton';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -27,29 +26,30 @@ const Navbar = () => {
     };
   }, []);
 
+  const logo = useMemo(() => {
+    const size = isMobile ? 48 : 64;
+
+    return <Link href="/" className={styles.logo}>
+      <img src="/logo.webp" alt="Dhrubo Tara" width={1.158 * size} height={size} />
+    </Link>
+  }, [])
+
   return (
     <nav className={`${styles.navbar} ${isScrolled ? styles.scrolled : ''}`}>
       {isMobile ? (
         <div className={styles.mobileNav}>
-
-            <Link href="/" className={styles.logo}>
-              DHRUBO TARA
-            </Link>
-            <SignInButton size='small' />
-
+          {logo}
+          {isScrolled && <h5>DHRUBO TARA</h5>}
+          <Link href="/shop" className={`button-dark`}>Shop Now</Link>
         </div>
       ) : (
         <div className={`container ${styles.navContent}`}>
-          <Link href="/" className={styles.logo}>
-            DHRUBO TARA
-        </Link>
-        <div className={styles.navLinks}>
-          <Link href="/" className={styles.navLink}>Home</Link>
-          <Link href="/about" className={styles.navLink}>About</Link>
-          <Link href="/shop" className={styles.button}>Shop Now</Link>
-        </div>
-        <SignInButton />
-      </div>)}
+          {logo}
+          <div className={styles.navLinks}>
+            <Link href="/about" className={styles.navLink}>About</Link>
+            <Link href="/shop" className={styles.button}>Shop Now</Link>
+          </div>
+        </div>)}
     </nav>
   );
 };

@@ -1,7 +1,6 @@
 import React from 'react';
 import ProductCard from '@/components/ProductCard/ProductCard';
 import { products } from '@/data/products';
-import Link from 'next/link';
 import styles from './page.module.css';
 
 export default function Home() {
@@ -10,8 +9,7 @@ export default function Home() {
       <section className={styles.hero}>
         <div className="container">
           <h1>DHRUBO TARA</h1>
-          <p>Organic healing with Bengali herbs</p>
-          <Link href="/shop" className={styles.button}>Shop Now</Link>
+          <p>Discover the ancient wisdom of Bengali herbal remedies</p>
         </div>
       </section>
 

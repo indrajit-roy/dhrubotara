@@ -11,12 +11,15 @@
   .scrolled {
     background-color: var(--background-color);
     padding: var(--spacing-sm) 0;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   
   .navContent {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 var(--spacing-lg);
   }
   
   .logo {

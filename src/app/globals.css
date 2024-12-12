@@ -86,3 +86,10 @@ a {
 *:hover {
   scrollbar-color: #d4c3ad transparent;
 }
+
+.button-dark {
+  background-color: var(--primary-color);
+  color: var(--white);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--border-radius-sm);
+}
