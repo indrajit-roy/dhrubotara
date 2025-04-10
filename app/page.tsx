@@ -1,56 +1,79 @@
-import { Link } from "@heroui/link";
-import { Snippet } from "@heroui/snippet";
-import { Code } from "@heroui/code";
-import { button as buttonStyles } from "@heroui/theme";
+"use client";
 
-import { siteConfig } from "@/config/site";
-import { title, subtitle } from "@/components/primitives";
-import { GithubIcon } from "@/components/icons";
+import { Button, Card, CardBody, CardFooter } from "@heroui/react";
+import Link from "next/link";
+import Image from "next/image";
+
+import { products } from "./data/products";
 
 export default function Home() {
   return (
-    <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-      <div className="inline-block max-w-xl text-center justify-center">
-        <span className={title()}>Make&nbsp;</span>
-        <span className={title({ color: "violet" })}>beautiful&nbsp;</span>
-        <br />
-        <span className={title()}>
-          websites regardless of your design experience.
-        </span>
-        <div className={subtitle({ class: "mt-4" })}>
-          Beautiful, fast and modern React UI library.
+    <main className="flex min-h-screen flex-col items-center">
+      {/* Hero Section */}
+      <section className="w-full bg-gradient-to-r from-green-50 to-green-100 py-20">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col items-center text-center">
+            <h1 className="mb-6 text-5xl font-bold text-gray-800">
+              Natural Wellness, <br />
+              Organic Goodness
+            </h1>
+            <p className="mb-8 max-w-2xl text-xl text-gray-600">
+              Discover our premium selection of organic products, carefully
+              sourced and crafted for your health and wellbeing.
+            </p>
+            <Link href="/products">
+              <Button
+                size="lg"
+                className="bg-green-600 text-white hover:bg-green-700"
+              >
+                Shop Now
+              </Button>
+            </Link>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <div className="flex gap-3">
-        <Link
-          isExternal
-          className={buttonStyles({
-            color: "primary",
-            radius: "full",
-            variant: "shadow",
-          })}
-          href={siteConfig.links.docs}
-        >
-          Documentation
-        </Link>
-        <Link
-          isExternal
-          className={buttonStyles({ variant: "bordered", radius: "full" })}
-          href={siteConfig.links.github}
-        >
-          <GithubIcon size={20} />
-          GitHub
-        </Link>
-      </div>
-
-      <div className="mt-8">
-        <Snippet hideCopyButton hideSymbol variant="bordered">
-          <span>
-            Get started by editing <Code color="primary">app/page.tsx</Code>
-          </span>
-        </Snippet>
-      </div>
-    </section>
+      {/* Featured Products */}
+      <section className="container mx-auto px-4 py-16">
+        <h2 className="mb-12 text-center text-3xl font-bold text-gray-800">
+          Featured Products
+        </h2>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {products.map((product) => (
+            <Card
+              key={product.id}
+              className="hover:shadow-lg transition-shadow duration-300"
+            >
+              <CardBody className="overflow-visible p-0">
+                <div className="relative h-[240px] w-full">
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    fill
+                    className="object-cover rounded-t-xl"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
+                  <p className="text-gray-600 line-clamp-2">
+                    {product.description}
+                  </p>
+                </div>
+              </CardBody>
+              <CardFooter className="flex justify-between items-center px-6 pb-6">
+                <span className="text-lg font-bold text-green-600">
+                  ${product.price}
+                </span>
+                <Link href={`/products/${product.id}`}>
+                  <Button className="bg-green-600 text-white hover:bg-green-700">
+                    View Details
+                  </Button>
+                </Link>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+      </section>
+    </main>
   );
 }
