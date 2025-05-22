@@ -12,8 +12,8 @@ import { Navbar } from "@/components/navbar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Organic Products Store",
-  description: "Your one-stop shop for premium organic products",
+  title: "DhruboTara - Natural Wellness & Organic Products",
+  description: "Discover our premium selection of organic and natural wellness products, carefully sourced and crafted for your health and wellbeing.",
   icons: {
     icon: "/favicon.ico",
   },
@@ -49,21 +49,39 @@ export default function RootLayout({
               <nav className="bg-white shadow-sm">
                 <div className="container mx-auto px-4">
                   <div className="flex h-16 items-center justify-between">
-                    <Link href="/" className="text-xl font-bold text-green-600">
-                      Organic Store
+                    <Link href="/" className="text-2xl font-bold text-green-600">
+                      DhruboTara
                     </Link>
                     <div className="flex space-x-8">
                       <Link
                         href="/"
-                        className="text-gray-600 hover:text-green-600"
+                        className="text-gray-700 hover:text-green-600 transition-colors"
                       >
                         Home
                       </Link>
                       <Link
                         href="/products"
-                        className="text-gray-600 hover:text-green-600"
+                        className="text-gray-700 hover:text-green-600 transition-colors"
                       >
                         Products
+                      </Link>
+                      <Link
+                        href="/testimonials"
+                        className="text-gray-700 hover:text-green-600 transition-colors"
+                      >
+                        Testimonials
+                      </Link>
+                      <Link
+                        href="/about"
+                        className="text-gray-700 hover:text-green-600 transition-colors"
+                      >
+                        About Us
+                      </Link>
+                      <Link
+                        href="/contact"
+                        className="text-gray-700 hover:text-green-600 transition-colors"
+                      >
+                        Contact
                       </Link>
                     </div>
                   </div>
@@ -78,10 +96,10 @@ export default function RootLayout({
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                   <div className="space-y-4">
                     <h3 className="text-xl font-bold text-green-600">
-                      Organic Store
+                      DhruboTara
                     </h3>
                     <p className="text-gray-600">
-                      Your trusted source for premium organic products.
+                      Natural wellness and organic goodness for your health and wellbeing.
                     </p>
                   </div>
                   <div className="space-y-4">
@@ -92,7 +110,7 @@ export default function RootLayout({
                       <li>
                         <Link
                           href="/"
-                          className="text-gray-600 hover:text-green-600"
+                          className="text-gray-600 hover:text-green-600 transition-colors"
                         >
                           Home
                         </Link>
@@ -100,9 +118,33 @@ export default function RootLayout({
                       <li>
                         <Link
                           href="/products"
-                          className="text-gray-600 hover:text-green-600"
+                          className="text-gray-600 hover:text-green-600 transition-colors"
                         >
                           Products
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href="/testimonials"
+                          className="text-gray-600 hover:text-green-600 transition-colors"
+                        >
+                          Testimonials
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href="/about"
+                          className="text-gray-600 hover:text-green-600 transition-colors"
+                        >
+                          About Us
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href="/contact"
+                          className="text-gray-600 hover:text-green-600 transition-colors"
+                        >
+                          Contact
                         </Link>
                       </li>
                     </ul>
@@ -112,15 +154,15 @@ export default function RootLayout({
                       Contact
                     </h3>
                     <p className="text-gray-600">
-                      Email: info@organicstore.com
+                      Email: contact@dhrubotara.com
                     </p>
-                    <p className="text-gray-600">Phone: (555) 123-4567</p>
+                    <p className="text-gray-600">Phone: +91 98315 74424</p>
+                    <p className="text-gray-600">Kolkata, West Bengal, India</p>
                   </div>
                 </div>
                 <div className="border-t border-gray-200 mt-8 pt-8 text-center text-gray-600">
                   <p>
-                    &copy; {new Date().getFullYear()} Organic Store. All rights
-                    reserved.
+                    &copy; {new Date().getFullYear()} DhruboTara. All rights reserved.
                   </p>
                 </div>
               </div>
