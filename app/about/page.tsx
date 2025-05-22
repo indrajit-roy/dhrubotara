@@ -13,8 +13,8 @@ export default function AboutPage() {
           Our Story
         </h1>
         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-          Empowering your wellness journey with nature's finest ingredients and
-          traditional wisdom.
+          Empowering your wellness journey with nature&apos;s finest ingredients
+          and traditional wisdom.
         </p>
       </section>
 
@@ -44,10 +44,10 @@ export default function AboutPage() {
           </div>
           <div className="relative h-96 rounded-lg overflow-hidden">
             <Image
-              src="/images/about-herbs.jpg"
-              alt="Organic herbs and ingredients"
               fill
+              alt="Organic herbs and ingredients"
               className="object-cover"
+              src="/images/about-herbs.jpg"
             />
           </div>
         </div>
@@ -57,7 +57,7 @@ export default function AboutPage() {
       <section className="space-y-8">
         <div className="text-center">
           <h2 className="text-3xl font-bold text-gray-800">Our Values</h2>
-          <div className="w-20 h-1 bg-green-600 mx-auto mt-2"></div>
+          <div className="w-20 h-1 bg-green-600 mx-auto mt-2" />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -71,10 +71,10 @@ export default function AboutPage() {
                   viewBox="0 0 24 24"
                 >
                   <path
+                    d="M5 13l4 4L19 7"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M5 13l4 4L19 7"
                   />
                 </svg>
               </div>
@@ -98,15 +98,17 @@ export default function AboutPage() {
                   viewBox="0 0 24 24"
                 >
                   <path
+                    d="M13 10V3L4 14h7v7l9-11h-7z"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M13 10V3L4 14h7v7l9-11h-7z"
                   />
                 </svg>
               </div>
               <div className="flex flex-col items-center space-y-2">
-                <h3 className="text-xl font-semibold text-gray-800 text-center">Effectiveness</h3>
+                <h3 className="text-xl font-semibold text-gray-800 text-center">
+                  Effectiveness
+                </h3>
                 <p className="text-gray-600 text-center">
                   Formulated with traditional knowledge and modern research for
                   maximum effectiveness.
@@ -125,18 +127,20 @@ export default function AboutPage() {
                   viewBox="0 0 24 24"
                 >
                   <path
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
               </div>
               <div className="flex flex-col items-center space-y-2">
-                <h3 className="text-xl font-semibold text-gray-800 text-center">Tradition</h3>
+                <h3 className="text-xl font-semibold text-gray-800 text-center">
+                  Tradition
+                </h3>
                 <p className="text-gray-600 text-center">
-                  Honoring traditional wellness practices while incorporating modern
-                  insights to create products for today's lifestyle.
+                  Honoring traditional wellness practices while incorporating
+                  modern insights to create products for today&apos;s lifestyle.
                 </p>
               </div>
             </div>
@@ -150,17 +154,17 @@ export default function AboutPage() {
           <h2 className="text-3xl font-bold text-gray-800 mb-4">
             Meet Our Founder
           </h2>
-          <div className="w-20 h-1 bg-green-600 mx-auto"></div>
+          <div className="w-20 h-1 bg-green-600 mx-auto" />
         </div>
         <div className="bg-white rounded-lg shadow-md overflow-hidden max-w-4xl mx-auto">
           <div className="md:flex">
             <div className="md:flex-shrink-0 md:w-1/3">
               <div className="relative h-64 md:h-full">
                 <Image
-                  src="/images/founder.jpg"
-                  alt="Founder"
                   fill
+                  alt="Founder"
                   className="object-cover"
+                  src="/images/founder.jpg"
                 />
               </div>
             </div>
@@ -187,8 +191,8 @@ export default function AboutPage() {
               <div className="mt-6">
                 <Link href="/contact">
                   <Button
-                    variant="bordered"
                     className="border-green-600 text-green-600 hover:bg-green-50"
+                    variant="bordered"
                   >
                     Get in Touch
                   </Button>

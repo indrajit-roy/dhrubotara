@@ -23,8 +23,8 @@ export default function Home() {
             </p>
             <Link href="/products">
               <Button
-                size="lg"
                 className="bg-green-600 text-white hover:bg-green-700"
+                size="lg"
               >
                 Shop Now
               </Button>
@@ -47,10 +47,10 @@ export default function Home() {
               <CardBody className="overflow-visible p-0">
                 <div className="relative h-[240px] w-full">
                   <Image
-                    src={product.image}
-                    alt={product.name}
                     fill
+                    alt={product.name}
                     className="object-cover rounded-t-xl"
+                    src={product.image}
                   />
                 </div>
                 <div className="p-6">

@@ -7,13 +7,13 @@ import { Inter } from "next/font/google";
 import { Providers } from "./providers";
 
 import { fontSans } from "@/config/fonts";
-import { Navbar } from "@/components/navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "DhruboTara - Natural Wellness & Organic Products",
-  description: "Discover our premium selection of organic and natural wellness products, carefully sourced and crafted for your health and wellbeing.",
+  description:
+    "Discover our premium selection of organic and natural wellness products, carefully sourced and crafted for your health and wellbeing.",
   icons: {
     icon: "/favicon.ico",
   },
@@ -32,13 +32,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html suppressHydrationWarning lang="en" className="light">
+    <html suppressHydrationWarning className="light" lang="en">
       <head />
       <body
         className={clsx(
           "min-h-screen bg-background font-sans antialiased",
           fontSans.variable,
-          inter.className
+          inter.className,
         )}
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
@@ -49,37 +49,40 @@ export default function RootLayout({
               <nav className="bg-white shadow-sm">
                 <div className="container mx-auto px-4">
                   <div className="flex h-16 items-center justify-between">
-                    <Link href="/" className="text-2xl font-bold text-green-600">
+                    <Link
+                      className="text-2xl font-bold text-green-600"
+                      href="/"
+                    >
                       DhruboTara
                     </Link>
                     <div className="flex space-x-8">
                       <Link
-                        href="/"
                         className="text-gray-700 hover:text-green-600 transition-colors"
+                        href="/"
                       >
                         Home
                       </Link>
                       <Link
-                        href="/products"
                         className="text-gray-700 hover:text-green-600 transition-colors"
+                        href="/products"
                       >
                         Products
                       </Link>
                       <Link
-                        href="/testimonials"
                         className="text-gray-700 hover:text-green-600 transition-colors"
+                        href="/testimonials"
                       >
                         Testimonials
                       </Link>
                       <Link
-                        href="/about"
                         className="text-gray-700 hover:text-green-600 transition-colors"
+                        href="/about"
                       >
                         About Us
                       </Link>
                       <Link
-                        href="/contact"
                         className="text-gray-700 hover:text-green-600 transition-colors"
+                        href="/contact"
                       >
                         Contact
                       </Link>
@@ -99,7 +102,8 @@ export default function RootLayout({
                       DhruboTara
                     </h3>
                     <p className="text-gray-600">
-                      Natural wellness and organic goodness for your health and wellbeing.
+                      Natural wellness and organic goodness for your health and
+                      wellbeing.
                     </p>
                   </div>
                   <div className="space-y-4">
@@ -109,40 +113,40 @@ export default function RootLayout({
                     <ul className="space-y-2">
                       <li>
                         <Link
-                          href="/"
                           className="text-gray-600 hover:text-green-600 transition-colors"
+                          href="/"
                         >
                           Home
                         </Link>
                       </li>
                       <li>
                         <Link
-                          href="/products"
                           className="text-gray-600 hover:text-green-600 transition-colors"
+                          href="/products"
                         >
                           Products
                         </Link>
                       </li>
                       <li>
                         <Link
-                          href="/testimonials"
                           className="text-gray-600 hover:text-green-600 transition-colors"
+                          href="/testimonials"
                         >
                           Testimonials
                         </Link>
                       </li>
                       <li>
                         <Link
-                          href="/about"
                           className="text-gray-600 hover:text-green-600 transition-colors"
+                          href="/about"
                         >
                           About Us
                         </Link>
                       </li>
                       <li>
                         <Link
-                          href="/contact"
                           className="text-gray-600 hover:text-green-600 transition-colors"
+                          href="/contact"
                         >
                           Contact
                         </Link>
@@ -162,7 +166,8 @@ export default function RootLayout({
                 </div>
                 <div className="border-t border-gray-200 mt-8 pt-8 text-center text-gray-600">
                   <p>
-                    &copy; {new Date().getFullYear()} DhruboTara. All rights reserved.
+                    &copy; {new Date().getFullYear()} DhruboTara. All rights
+                    reserved.
                   </p>
                 </div>
               </div>

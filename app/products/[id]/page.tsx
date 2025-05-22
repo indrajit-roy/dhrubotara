@@ -25,8 +25,8 @@ export default function ProductPage({ params }: Props) {
   return (
     <div className="container mx-auto px-4 py-12">
       <Link
-        href="/products"
         className="inline-flex items-center text-green-600 hover:text-green-700 mb-8"
+        href="/products"
       >
         <svg
           className="w-5 h-5 mr-2"
@@ -35,10 +35,10 @@ export default function ProductPage({ params }: Props) {
           viewBox="0 0 24 24"
         >
           <path
+            d="M15 19l-7-7 7-7"
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
-            d="M15 19l-7-7 7-7"
           />
         </svg>
         Back to Products
@@ -48,10 +48,10 @@ export default function ProductPage({ params }: Props) {
         {/* Product Image */}
         <div className="relative h-[500px] w-full rounded-xl overflow-hidden">
           <Image
-            src={product.image}
-            alt={product.name}
             fill
+            alt={product.name}
             className="object-cover"
+            src={product.image}
           />
         </div>
 
@@ -61,7 +61,9 @@ export default function ProductPage({ params }: Props) {
             <h1 className="text-4xl font-bold text-gray-800 mb-4">
               {product.name}
             </h1>
-            <p className="text-2xl font-bold text-green-600">${product.price}</p>
+            <p className="text-2xl font-bold text-green-600">
+              ${product.price}
+            </p>
           </div>
 
           <div>
@@ -72,7 +74,9 @@ export default function ProductPage({ params }: Props) {
           </div>
 
           <div>
-            <h2 className="text-xl font-semibold text-gray-800 mb-3">Benefits</h2>
+            <h2 className="text-xl font-semibold text-gray-800 mb-3">
+              Benefits
+            </h2>
             <ul className="list-disc list-inside text-gray-600 space-y-2">
               {product.benefits.map((benefit, index) => (
                 <li key={index}>{benefit}</li>
@@ -99,8 +103,8 @@ export default function ProductPage({ params }: Props) {
           </div>
 
           <Button
-            size="lg"
             className="w-full bg-green-600 text-white hover:bg-green-700"
+            size="lg"
           >
             Add to Cart
           </Button>
@@ -108,4 +112,4 @@ export default function ProductPage({ params }: Props) {
       </div>
     </div>
   );
-} 
+}

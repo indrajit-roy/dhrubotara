@@ -11,13 +11,6 @@ interface FormData {
   message: string;
 }
 
-interface FormStatus {
-  idle: "idle";
-  submitting: "submitting";
-  success: "success";
-  error: "error";
-}
-
 export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<FormData>({
@@ -28,9 +21,10 @@ export default function ContactPage() {
   });
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
+
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -66,83 +60,83 @@ export default function ContactPage() {
               Get in Touch
             </h2>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="space-y-2">
                 <label
-                  htmlFor="name"
                   className="block text-sm font-medium text-gray-700"
+                  htmlFor="name"
                 >
                   Name *
                 </label>
                 <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
                   required
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  id="name"
+                  name="name"
+                  type="text"
+                  value={formData.name}
+                  onChange={handleChange}
                 />
               </div>
 
               <div className="space-y-2">
                 <label
-                  htmlFor="email"
                   className="block text-sm font-medium text-gray-700"
+                  htmlFor="email"
                 >
                   Email *
                 </label>
                 <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
                   required
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  id="email"
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleChange}
                 />
               </div>
 
               <div className="space-y-2">
                 <label
-                  htmlFor="subject"
                   className="block text-sm font-medium text-gray-700"
+                  htmlFor="subject"
                 >
                   Subject
                 </label>
                 <input
-                  type="text"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent"
                   id="subject"
                   name="subject"
+                  type="text"
                   value={formData.subject}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent"
                 />
               </div>
 
               <div className="space-y-2">
                 <label
-                  htmlFor="message"
                   className="block text-sm font-medium text-gray-700"
+                  htmlFor="message"
                 >
                   Message *
                 </label>
                 <textarea
+                  required
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent"
                   id="message"
                   name="message"
                   rows={5}
                   value={formData.message}
                   onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                ></textarea>
+                />
               </div>
 
               <div className="flex justify-end">
                 <button
-                  type="submit"
-                  disabled={isSubmitting}
                   className="px-6 py-2 bg-green-600 text-white font-medium rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={isSubmitting}
+                  type="submit"
                 >
                   {isSubmitting ? "Sending..." : "Send Message"}
                 </button>
@@ -162,14 +156,14 @@ export default function ContactPage() {
                   <svg
                     className="h-6 w-6"
                     fill="none"
-                    viewBox="0 0 24 24"
                     stroke="currentColor"
+                    viewBox="0 0 24 24"
                   >
                     <path
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
-                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                     />
                   </svg>
                 </div>
@@ -186,14 +180,14 @@ export default function ContactPage() {
                   <svg
                     className="h-6 w-6"
                     fill="none"
-                    viewBox="0 0 24 24"
                     stroke="currentColor"
+                    viewBox="0 0 24 24"
                   >
                     <path
+                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
-                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                     />
                   </svg>
                 </div>
@@ -210,20 +204,20 @@ export default function ContactPage() {
                   <svg
                     className="h-6 w-6"
                     fill="none"
-                    viewBox="0 0 24 24"
                     stroke="currentColor"
+                    viewBox="0 0 24 24"
                   >
                     <path
+                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
-                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
                     />
                     <path
+                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
-                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                     />
                   </svg>
                 </div>
@@ -245,14 +239,14 @@ export default function ContactPage() {
             </h3>
             <p className="text-gray-600 mb-4">
               If you or someone you know is going through health issues and
-              needs help, give us a call for a well-rounded wellness "totka" and
-              some wholesome adda, today.
+              needs help, give us a call for a well-rounded wellness &quot;totka
+              &quot; and some wholesome adda, today.
             </p>
             <a
-              href="https://wa.me/919831574424"
-              target="_blank"
-              rel="noopener noreferrer"
               className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+              href="https://wa.me/919831574424"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               <svg
                 className="-ml-1 mr-2 h-5 w-5"
@@ -260,9 +254,9 @@ export default function ContactPage() {
                 viewBox="0 0 20 20"
               >
                 <path
-                  fillRule="evenodd"
-                  d="M18 10c0-3.976-3.03-7.25-6.9-7.25-3.87 0-7 3.274-7 7.25 0 1.87.7 3.57 1.85 4.88L5 20l3.08-1.6c1.32.72 2.82 1.1 4.42 1.1 3.87 0 7-3.274 7-7.25zM8.75 7.5c0-.41.34-.75.75-.75h1.5c.41 0 .75.34.75.75v1.5c0 .41-.34.75-.75.75h-1.5a.75.75 0 01-.75-.75v-1.5zm4.5 0c0-.41.34-.75.75-.75h1.5c.41 0 .75.34.75.75v1.5c0 .41-.34.75-.75.75h-1.5a.75.75 0 01-.75-.75v-1.5zm-4.5 5c0-.41.34-.75.75-.75h1.5c.41 0 .75.34.75.75v1.5c0 .41-.34.75-.75.75h-1.5a.75.75 0 01-.75-.75v-1.5zm4.5 0c0-.41.34-.75.75-.75h1.5c.41 0 .75.34.75.75v1.5c0 .41-.34.75-.75.75h-1.5a.75.75 0 01-.75-.75v-1.5z"
                   clipRule="evenodd"
+                  d="M18 10c0-3.976-3.03-7.25-6.9-7.25-3.87 0-7 3.274-7 7.25 0 1.87.7 3.57 1.85 4.88L5 20l3.08-1.6c1.32.72 2.82 1.1 4.42 1.1 3.87 0 7-3.274 7-7.25zM8.75 7.5c0-.41.34-.75.75-.75h1.5c.41 0 .75.34.75.75v1.5c0 .41-.34.75-.75.75h-1.5a.75.75 0 01-.75-.75v-1.5zm4.5 0c0-.41.34-.75.75-.75h1.5c.41 0 .75.34.75.75v1.5c0 .41-.34.75-.75.75h-1.5a.75.75 0 01-.75-.75v-1.5zm-4.5 5c0-.41.34-.75.75-.75h1.5c.41 0 .75.34.75.75v1.5c0 .41-.34.75-.75.75h-1.5a.75.75 0 01-.75-.75v-1.5zm4.5 0c0-.41.34-.75.75-.75h1.5c.41 0 .75.34.75.75v1.5c0 .41-.34.75-.75.75h-1.5a.75.75 0 01-.75-.75v-1.5z"
+                  fillRule="evenodd"
                 />
               </svg>
               Chat on WhatsApp
