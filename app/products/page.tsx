@@ -113,12 +113,9 @@ export default function ProductsPage() {
                 )}
               </div>
 
-              {/* Price and Action */}
+              {/* Action */}
               <div className="mt-auto pt-4 border-t border-gray-100">
-                <div className="flex items-center justify-between">
-                  <span className="text-2xl font-bold text-green-600">
-                    ₹{product.price.toFixed(2)}
-                  </span>
+                <div className="flex justify-center">
                   <a
                     className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                     href={`https://wa.me/919831574424?text=Hi, I'm interested in purchasing ${product.name}. Can you please provide more details?`}

@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import { Metadata, Viewport } from "next";
 import { Link } from "@heroui/link";
+import Image from "next/image";
 import clsx from "clsx";
 import { Inter } from "next/font/google";
 
@@ -46,16 +47,25 @@ export default function RootLayout({
             {/* <Navbar /> */}
             <main className="container mx-auto max-w-7xl pt-6 flex-grow">
               {/* Navigation */}
-              <nav className="bg-white shadow-sm">
+              <nav className="w-full py-20">
                 <div className="container mx-auto px-4">
                   <div className="flex h-16 items-center justify-between">
                     <Link
                       className="text-2xl font-bold text-green-600"
                       href="/"
                     >
-                      DhruboTara
+                      {/*<div className="rounded-full bg-green-950">*/}
+                      <Image
+                        alt={""}
+                        className="object-cover"
+                        height={300}
+                        src={"/images/logoV2.png"}
+                        style={{ zIndex: 9999 }}
+                        width={300}
+                      />
+                      {/*</div>*/}
                     </Link>
-                    <div className="flex space-x-8">
+                    <div className="space-x-8">
                       <Link
                         className="text-gray-700 hover:text-green-600 transition-colors"
                         href="/"

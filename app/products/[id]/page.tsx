@@ -61,9 +61,6 @@ export default function ProductPage({ params }: Props) {
             <h1 className="text-4xl font-bold text-gray-800 mb-4">
               {product.name}
             </h1>
-            <p className="text-2xl font-bold text-green-600">
-              ${product.price}
-            </p>
           </div>
 
           <div>

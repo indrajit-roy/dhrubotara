@@ -2,7 +2,6 @@ export interface Product {
   id: string;
   name: string;
   description: string;
-  price: number;
   image: string;
   benefits: string[];
   ingredients: string[];
@@ -16,7 +15,6 @@ export const products: Product[] = [
     name: "Kashyam",
     description:
       "A potent Ayurvedic remedy for persistent cough and cold, blending traditional herbs for respiratory relief.",
-    price: 499,
     image: "/images/kashyam.jpg",
     benefits: [
       "Provides relief from persistent cough and cold",
@@ -38,7 +36,6 @@ export const products: Product[] = [
     name: "Nariyal Hair Oil",
     description:
       "A nourishing hair oil that combines the goodness of coconut with traditional herbs for healthy hair growth and scalp care.",
-    price: 599,
     image: "/images/nariyal.jpg",
     benefits: [
       "Reduces hair fall",
@@ -66,7 +63,6 @@ export const products: Product[] = [
     name: "Swasti Digestive Mix",
     description:
       "A digestive aid that promotes gut health and provides relief from bloating and indigestion.",
-    price: 399,
     image: "/images/swasti.jpg",
     benefits: [
       "Aids digestion",

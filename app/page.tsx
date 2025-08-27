@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center">
       {/* Hero Section */}
-      <section className="w-full bg-gradient-to-r from-green-50 to-green-100 py-20">
+      <section className="w-full py-20">
         <div className="container mx-auto px-4">
           <div className="flex flex-col items-center text-center">
             <h1 className="mb-6 text-5xl font-bold text-gray-800">
@@ -60,10 +60,7 @@ export default function Home() {
                   </p>
                 </div>
               </CardBody>
-              <CardFooter className="flex justify-between items-center px-6 pb-6">
-                <span className="text-lg font-bold text-green-600">
-                  ${product.price}
-                </span>
+              <CardFooter className="flex justify-center px-6 pb-6">
                 <Link href={`/products/${product.id}`}>
                   <Button className="bg-green-600 text-white hover:bg-green-700">
                     View Details
