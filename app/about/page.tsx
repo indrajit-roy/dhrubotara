@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function AboutPage() {
   return (
-    <div className="mx-auto px-6 py-12 space-y-12">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
       {/* Hero Section */}
       <section className="text-center">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
@@ -20,7 +20,7 @@ export default function AboutPage() {
 
       {/* Mission Section */}
       <section>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           <div>
             <h2 className="text-3xl font-bold text-gray-800 mb-6">
               Our Mission
@@ -47,25 +47,25 @@ export default function AboutPage() {
               fill
               alt="Organic herbs and ingredients"
               className="object-cover"
-              src="/images/about-herbs.jpg"
+              src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
             />
           </div>
         </div>
       </section>
 
       {/* Values Section */}
-      <section className="space-y-8">
+      <section className="space-y-12">
         <div className="text-center">
           <h2 className="text-3xl font-bold text-gray-800">Our Values</h2>
-          <div className="w-20 h-1 bg-green-600 mx-auto mt-2" />
+          <div className="w-20 h-1 bg-green-600 mx-auto mt-4" />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-            <div className="flex flex-col items-center space-y-6">
-              <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
+            <div className="flex flex-col items-center space-y-4">
+              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
                 <svg
-                  className="w-5 h-5 text-green-600"
+                  className="w-6 h-6 text-green-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -78,7 +78,7 @@ export default function AboutPage() {
                   />
                 </svg>
               </div>
-              <div className="flex flex-col items-center space-y-2">
+              <div className="flex flex-col items-center space-y-3 text-center">
                 <h3 className="text-xl font-semibold text-gray-800">Purity</h3>
                 <p className="text-gray-600 text-center">
                   We use only the purest, highest quality ingredients with no
@@ -88,11 +88,11 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-            <div className="flex flex-col items-center space-y-6">
-              <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+          <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
+            <div className="flex flex-col items-center space-y-4">
+              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
                 <svg
-                  className="w-5 h-5 text-green-600"
+                  className="w-6 h-6 text-green-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -105,7 +105,7 @@ export default function AboutPage() {
                   />
                 </svg>
               </div>
-              <div className="flex flex-col items-center space-y-2">
+              <div className="flex flex-col items-center space-y-3 text-center">
                 <h3 className="text-xl font-semibold text-gray-800 text-center">
                   Effectiveness
                 </h3>
@@ -117,11 +117,11 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-            <div className="flex flex-col items-center space-y-6">
-              <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+          <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
+            <div className="flex flex-col items-center space-y-4">
+              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
                 <svg
-                  className="w-5 h-5 text-green-600"
+                  className="w-6 h-6 text-green-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -134,7 +134,7 @@ export default function AboutPage() {
                   />
                 </svg>
               </div>
-              <div className="flex flex-col items-center space-y-2">
+              <div className="flex flex-col items-center space-y-3 text-center">
                 <h3 className="text-xl font-semibold text-gray-800 text-center">
                   Tradition
                 </h3>
@@ -156,19 +156,19 @@ export default function AboutPage() {
           </h2>
           <div className="w-20 h-1 bg-green-600 mx-auto" />
         </div>
-        <div className="bg-white rounded-lg shadow-md overflow-hidden max-w-4xl mx-auto">
-          <div className="md:flex">
-            <div className="md:flex-shrink-0 md:w-1/3">
-              <div className="relative h-64 md:h-full">
+        <div className="bg-white rounded-lg shadow-md overflow-hidden max-w-5xl mx-auto">
+          <div className="lg:flex">
+            <div className="lg:flex-shrink-0 lg:w-2/5">
+              <div className="relative h-64 lg:h-full">
                 <Image
                   fill
                   alt="Founder"
                   className="object-cover"
-                  src="/images/founder.jpg"
+                  src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
                 />
               </div>
             </div>
-            <div className="p-8 md:p-10">
+            <div className="p-8 lg:p-12 lg:flex lg:flex-col lg:justify-center">
               <div className="uppercase tracking-wide text-sm text-green-600 font-semibold mb-2">
                 Founder & Herbalist
               </div>
