@@ -24,8 +24,8 @@ export const ResponsiveNavbar = () => {
   };
 
   return (
-    <nav className="w-full py-4 md:py-16">
-      <div className="container mx-auto px-4">
+    <nav className="w-full py-6 md:py-16">
+      <div className="container mx-auto px-6 md:px-4">
         <div className="flex h-16 items-center justify-between">
           <Link
             className="text-2xl font-bold text-green-600"
@@ -34,10 +34,10 @@ export const ResponsiveNavbar = () => {
           >
             <Image
               alt="DhruboTara Logo"
-              className="object-contain h-16 md:h-20 w-auto"
-              height={80}
-              src={"/images/logoV2.png"}
-              width={80 * 1.776}
+              className="w-[80px] h-[80px] md:w-[100px] md:h-[100px] object-contain"
+              height={100}
+              src={"/images/logo.png"}
+              width={100}
             />
           </Link>
 
