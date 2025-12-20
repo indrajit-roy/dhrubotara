@@ -1,0 +1,43 @@
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+
+interface ProductProps {
+  id: string;
+  name: string;
+  description: string;
+  image: string;
+  tag: string;
+}
+
+export function ProductCard({ id, name, description, image, tag }: ProductProps) {
+  return (
+    <Link to={`/product/${id}`} className="block">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        whileHover={{ y: -5 }}
+        transition={{ duration: 0.5 }}
+        className="group cursor-pointer"
+      >
+        <div className="relative aspect-square overflow-hidden bg-stone-100 mb-6">
+          <img 
+            src={image} 
+            alt={name}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+          <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 text-xs font-sans tracking-widest uppercase text-emerald-900">
+            {tag}
+          </div>
+        </div>
+        
+        <h3 className="font-serif text-2xl text-emerald-950 mb-2 group-hover:text-emerald-700 transition-colors">
+          {name}
+        </h3>
+        <p className="text-stone-500 font-sans text-sm leading-relaxed">
+          {description}
+        </p>
+      </motion.div>
+    </Link>
+  );
+}
