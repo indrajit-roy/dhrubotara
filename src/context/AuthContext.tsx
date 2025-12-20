@@ -1,6 +1,16 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
-import { type User, onAuthStateChanged, signOut as firebaseSignOut } from 'firebase/auth';
-import { auth } from '../lib/firebase'; // We will create this next
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
+import {
+  type User,
+  onAuthStateChanged,
+  signOut as firebaseSignOut,
+} from "firebase/auth";
+import { auth } from "../lib/firebase"; // We will create this next
 
 interface AuthContextType {
   user: User | null;
@@ -12,10 +22,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 // TODO: Replace this with your mom's actual phone number(s)
-const AUTHORIZED_NUMBERS = [
-  '+919876543210', 
-  '+15555555555' // Add testing numbers here
-];
+const AUTHORIZED_NUMBERS = ["+918334030949"];
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
@@ -26,8 +33,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // In "Mock Mode" (no firebase keys), we might want to skip this or simulate
     // But for the real implementation:
     if (!auth) {
-        setLoading(false);
-        return;
+      setLoading(false);
+      return;
     }
 
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
