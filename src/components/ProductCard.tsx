@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { FadeInImage } from './ui/FadeInImage';
 
 interface ProductProps {
   id: string;
@@ -21,12 +22,13 @@ export function ProductCard({ id, name, description, image, tag }: ProductProps)
         className="group cursor-pointer"
       >
         <div className="relative aspect-square overflow-hidden bg-stone-100 mb-6">
-          <img 
+          <FadeInImage 
             src={image} 
             alt={name}
+            containerClassName="w-full h-full"
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
-          <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 text-xs font-sans tracking-widest uppercase text-emerald-900">
+          <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 text-xs font-sans tracking-widest uppercase text-emerald-900 z-10">
             {tag}
           </div>
         </div>

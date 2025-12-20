@@ -36,7 +36,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-emerald-900 mt-16 pt-8 text-center text-xs text-stone-500 font-sans tracking-wider">
-          &copy; {new Date().getFullYear()} Dhrubotara. All rights reserved.
+          Handcrafted with love & tradition. &copy; {new Date().getFullYear()} Dhrubotara.
         </div>
       </div>
     </footer>

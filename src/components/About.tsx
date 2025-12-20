@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { FadeInImage } from './ui/FadeInImage';
 
 export function About() {
   return (
@@ -13,9 +14,10 @@ export function About() {
             className="relative"
           >
              <div className="aspect-[4/5] bg-stone-200 overflow-hidden rounded-sm">
-                <img 
+                <FadeInImage 
                   src="https://picsum.photos/seed/dhrubotara1/800/1000" 
                   alt="Making process" 
+                  containerClassName="w-full h-full"
                   className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                 />
              </div>

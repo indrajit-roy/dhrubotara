@@ -47,18 +47,20 @@ export function Navbar() {
               >
                 Contact
               </button>
-            <button 
-              onClick={() => handleNavClick('contact')}
-              className="bg-emerald-900 text-stone-50 px-6 py-2 rounded-sm font-sans text-sm tracking-wide hover:bg-emerald-800 transition-colors cursor-pointer"
+            <a 
+              href="https://wa.me/918334030949?text=Hi%2C%20I%20would%20like%20to%20place%20an%20order."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-emerald-900 text-stone-50 px-6 py-2 rounded-sm font-sans text-sm tracking-wide hover:bg-emerald-800 transition-all cursor-pointer active:scale-95 inline-block text-center no-underline"
             >
-              Order Now
-            </button>
+              Order via WhatsApp
+            </a>
           </div>
 
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-stone-800 hover:text-emerald-900 p-2"
+              className="text-stone-800 hover:text-emerald-900 p-2 cursor-pointer active:scale-95"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -81,17 +83,19 @@ export function Navbar() {
              <button
               key={item}
               onClick={() => handleNavClick(item.toLowerCase())}
-              className="text-stone-600 hover:text-emerald-900 block px-6 py-3 text-lg font-medium w-full text-center active:bg-stone-100 rounded-sm bg-transparent border-none"
+              className="text-stone-600 hover:text-emerald-900 block px-6 py-3 text-lg font-medium w-full text-center active:bg-stone-100 rounded-sm bg-transparent border-none cursor-pointer"
             >
               {item}
             </button>
           ))}
-          <button
-            onClick={() => handleNavClick('contact')}
-            className="w-full bg-emerald-900 text-stone-50 px-6 py-4 mt-6 rounded-sm font-sans text-base tracking-wide active:bg-emerald-800 text-center block"
+          <a
+            href="https://wa.me/918334030949?text=Hi%2C%20I%20would%20like%20to%20place%20an%20order."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full bg-emerald-950 text-stone-50 px-6 py-4 mt-6 rounded-sm font-sans text-base tracking-wide active:scale-95 transition-all text-center block cursor-pointer no-underline"
           >
-            Order Now
-          </button>
+            Order via WhatsApp
+          </a>
         </div>
       </motion.div>
     </nav>

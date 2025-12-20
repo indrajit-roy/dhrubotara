@@ -3,13 +3,13 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, Check } from 'lucide-react';
 import { useProducts } from '../lib/useProducts';
 import { useEffect } from 'react';
+import { Skeleton } from '../components/ui/Skeleton';
+import { FadeInImage } from '../components/ui/FadeInImage';
 
 export function ProductDetailPage() {
   const { id } = useParams<{ id: string }>();
   const { products, loading } = useProducts();
   
-  // Since useProducts is async in a real DB, we might need to wait, 
-  // but for now it's fast enough or we show loading state
   const product = products.find((p) => p.id === id);
 
   useEffect(() => {
@@ -18,8 +18,25 @@ export function ProductDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-stone-50">
-         <div className="font-sans text-emerald-900">Loading details...</div>
+      <div className="min-h-screen bg-stone-50 pt-24 pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+           <Skeleton className="h-6 w-32 mb-8" />
+           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
+              <div className="bg-white p-4 lg:p-8 shadow-sm">
+                 <Skeleton className="aspect-square w-full" />
+              </div>
+              <div className="flex flex-col justify-center">
+                 <Skeleton className="h-12 w-3/4 mb-4" />
+                 <Skeleton className="h-8 w-1/3 mb-8" />
+                 <div className="space-y-4 mb-10">
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-2/3" />
+                 </div>
+                 <Skeleton className="h-14 w-40" />
+              </div>
+           </div>
+        </div>
       </div>
     );
   }
@@ -53,12 +70,13 @@ export function ProductDetailPage() {
             className="bg-white p-4 lg:p-8 shadow-sm"
           >
             <div className="aspect-square bg-stone-100 overflow-hidden relative">
-              <img 
+              <FadeInImage 
                 src={product.image} 
                 alt={product.name} 
+                containerClassName="w-full h-full"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-4 py-2 text-xs font-sans tracking-widest uppercase text-emerald-900">
+              <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-4 py-2 text-xs font-sans tracking-widest uppercase text-emerald-900 z-10">
                 {product.tag}
               </div>
             </div>
@@ -99,14 +117,26 @@ export function ProductDetailPage() {
 
             <div className="pt-8 border-t border-stone-200">
                <a 
-                 href="#contact" // In a real app, this might open a modal or specific order form
-                 className="block w-full sm:w-auto bg-emerald-950 text-stone-50 text-center px-8 py-4 rounded-sm font-sans tracking-wide hover:bg-emerald-900 transition-colors shadow-lg shadow-emerald-900/10"
+                 href={`https://wa.me/918334030949?text=Hi%2C%20I%20am%20interested%20in%20ordering%20${encodeURIComponent(product.name)}`}
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 className="block w-full sm:w-auto bg-emerald-950 text-stone-50 text-center px-8 py-4 rounded-sm font-sans tracking-wide hover:bg-emerald-900 transition-all active:scale-95 shadow-lg shadow-emerald-900/10 cursor-pointer no-underline flex items-center justify-center"
                >
-                 Inquire to Order
+                 <span className="mr-2 text-lg">💬</span> Order via WhatsApp
                </a>
                <p className="mt-4 text-center sm:text-left text-xs text-stone-400 font-sans">
                  * Due to the artisanal nature of our products, stock is limited.
                </p>
+
+               {/* How to Order Section */}
+               <div className="mt-12 bg-emerald-50/50 p-6 rounded-sm border border-emerald-100">
+                  <h4 className="font-serif text-lg text-emerald-950 mb-4">How to Order</h4>
+                  <ol className="list-decimal list-inside space-y-3 text-stone-700 font-sans text-sm">
+                    <li><strong className="text-emerald-900">Click the button</strong> above to open WhatsApp.</li>
+                    <li><strong className="text-emerald-900">Send the message</strong> to confirm availability.</li>
+                    <li><strong className="text-emerald-900">Pay via UPI</strong> and we will ship it to your doorstep.</li>
+                  </ol>
+               </div>
             </div>
           </motion.div>
         </div>

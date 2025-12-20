@@ -22,6 +22,7 @@ export function AdminDashboard() {
   
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Simple protection: Check mock auth or real auth
@@ -60,9 +61,17 @@ export function AdminDashboard() {
   const handleSaveProduct = async (e: React.FormEvent) => {
     e.preventDefault();
     if (editingProduct) {
-      await saveProduct(editingProduct);
-      setIsFormOpen(false);
-      setEditingProduct(null);
+      setIsSaving(true);
+      try {
+        await saveProduct(editingProduct);
+        setIsFormOpen(false);
+        setEditingProduct(null);
+      } catch (err) {
+        console.error(err);
+        alert("Failed to save product.");
+      } finally {
+        setIsSaving(false);
+      }
     }
   };
 
@@ -92,9 +101,17 @@ export function AdminDashboard() {
   const handleSaveTestimonial = async (e: React.FormEvent) => {
     e.preventDefault();
     if (editingTestimonial) {
-      await saveTestimonial(editingTestimonial);
-      setIsFormOpen(false);
-      setEditingTestimonial(null);
+      setIsSaving(true);
+      try {
+        await saveTestimonial(editingTestimonial);
+        setIsFormOpen(false);
+        setEditingTestimonial(null);
+      } catch (err) {
+        console.error(err);
+        alert("Failed to save testimonial.");
+      } finally {
+        setIsSaving(false);
+      }
     }
   };
 
@@ -140,7 +157,7 @@ export function AdminDashboard() {
              <span className="text-xs text-stone-400 hidden sm:inline">
                {user?.phoneNumber || "Demo User"}
              </span>
-             <button onClick={handleLogout} className="flex items-center text-sm hover:text-white transition-colors">
+             <button onClick={handleLogout} className="flex items-center text-sm hover:text-white transition-all cursor-pointer active:scale-95">
                <LogOut size={16} className="mr-2" /> Logout
              </button>
           </div>
@@ -153,13 +170,13 @@ export function AdminDashboard() {
         <div className="flex space-x-8 border-b border-stone-200 mb-8">
            <button
              onClick={() => setActiveTab('products')}
-             className={`pb-4 text-sm font-medium flex items-center ${activeTab === 'products' ? 'border-b-2 border-emerald-900 text-emerald-900' : 'text-stone-500 hover:text-stone-700'}`}
+             className={`pb-4 text-sm font-medium flex items-center cursor-pointer transition-all active:scale-95 ${activeTab === 'products' ? 'border-b-2 border-emerald-900 text-emerald-900' : 'text-stone-500 hover:text-stone-700'}`}
            >
              <Package size={18} className="mr-2" /> Products
            </button>
            <button
              onClick={() => setActiveTab('testimonials')}
-             className={`pb-4 text-sm font-medium flex items-center ${activeTab === 'testimonials' ? 'border-b-2 border-emerald-900 text-emerald-900' : 'text-stone-500 hover:text-stone-700'}`}
+             className={`pb-4 text-sm font-medium flex items-center cursor-pointer transition-all active:scale-95 ${activeTab === 'testimonials' ? 'border-b-2 border-emerald-900 text-emerald-900' : 'text-stone-500 hover:text-stone-700'}`}
            >
              <MessageSquare size={18} className="mr-2" /> Testimonials
            </button>
@@ -172,7 +189,7 @@ export function AdminDashboard() {
               <h2 className="font-serif text-2xl text-emerald-950">Catalog</h2>
               <button 
                 onClick={handleCreateProduct}
-                className="bg-emerald-800 text-white px-4 py-2 rounded-sm flex items-center hover:bg-emerald-700 transition-colors shadow-sm text-sm"
+                className="bg-emerald-800 text-white px-4 py-2 rounded-sm flex items-center hover:bg-emerald-700 transition-all shadow-sm text-sm cursor-pointer active:scale-95"
               >
                 <Plus size={16} className="mr-2" /> Add Product
               </button>
@@ -210,10 +227,10 @@ export function AdminDashboard() {
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                          <button onClick={() => handleEditProduct(product)} className="text-emerald-700 hover:text-emerald-900 mr-4">
+                          <button onClick={() => handleEditProduct(product)} className="text-emerald-700 hover:text-emerald-900 mr-4 cursor-pointer">
                             <Edit2 size={18} />
                           </button>
-                          <button onClick={() => handleDeleteProduct(product.id)} className="text-red-400 hover:text-red-600">
+                          <button onClick={() => handleDeleteProduct(product.id)} className="text-red-400 hover:text-red-600 cursor-pointer">
                             <Trash2 size={18} />
                           </button>
                         </td>
@@ -233,7 +250,7 @@ export function AdminDashboard() {
               <h2 className="font-serif text-2xl text-emerald-950">Testimonials</h2>
               <button 
                 onClick={handleCreateTestimonial}
-                className="bg-emerald-800 text-white px-4 py-2 rounded-sm flex items-center hover:bg-emerald-700 transition-colors shadow-sm text-sm"
+                className="bg-emerald-800 text-white px-4 py-2 rounded-sm flex items-center hover:bg-emerald-700 transition-all shadow-sm text-sm cursor-pointer active:scale-95"
               >
                 <Plus size={16} className="mr-2" /> Add Review
               </button>
@@ -254,10 +271,10 @@ export function AdminDashboard() {
                        {t.role && <p className="text-stone-400 text-xs mt-2">{t.role}</p>}
                     </div>
                     <div className="flex space-x-2 flex-shrink-0">
-                       <button onClick={() => handleEditTestimonial(t)} className="text-emerald-700 hover:text-emerald-900 p-1">
+                       <button onClick={() => handleEditTestimonial(t)} className="text-emerald-700 hover:text-emerald-900 p-1 cursor-pointer">
                           <Edit2 size={18} />
                        </button>
-                       <button onClick={() => handleDeleteTestimonial(t.id)} className="text-red-400 hover:text-red-600 p-1">
+                       <button onClick={() => handleDeleteTestimonial(t.id)} className="text-red-400 hover:text-red-600 p-1 cursor-pointer">
                           <Trash2 size={18} />
                        </button>
                     </div>
@@ -281,7 +298,7 @@ export function AdminDashboard() {
                     <h2 className="text-xl font-serif text-emerald-950">
                       {editingProduct.id.startsWith('new-') ? 'New Product' : 'Edit Product'}
                     </h2>
-                    <button onClick={() => { setIsFormOpen(false); setEditingProduct(null); }} className="text-stone-400 hover:text-stone-600">
+                    <button onClick={() => { setIsFormOpen(false); setEditingProduct(null); }} className="text-stone-400 hover:text-stone-600 cursor-pointer">
                        <X size={24} />
                     </button>
                  </div>
@@ -325,7 +342,7 @@ export function AdminDashboard() {
                             <button 
                                 type="button"
                                 onClick={() => fileInputRef.current?.click()}
-                                className="px-4 py-2 border border-stone-300 rounded-sm text-sm font-medium text-stone-700 hover:bg-stone-50 flex items-center"
+                                className="px-4 py-2 border border-stone-300 rounded-sm text-sm font-medium text-stone-700 hover:bg-stone-50 flex items-center cursor-pointer"
                             >
                                 <Upload size={16} className="mr-2" />
                                 {uploading ? "Uploading..." : "Change Image"}
@@ -358,8 +375,21 @@ export function AdminDashboard() {
                        />
                     </div>
                     <div className="pt-4 border-t border-stone-100 flex justify-end space-x-3">
-                       <button type="button" onClick={() => { setIsFormOpen(false); setEditingProduct(null); }} className="px-4 py-2 text-stone-600 hover:text-stone-800">Cancel</button>
-                       <button type="submit" className="px-6 py-2 bg-emerald-900 text-white rounded-sm hover:bg-emerald-800 shadow-sm flex items-center"><Save size={18} className="mr-2" /> Save</button>
+                       <button 
+                         type="button" 
+                         disabled={isSaving || uploading}
+                         onClick={() => { setIsFormOpen(false); setEditingProduct(null); }} 
+                         className="px-4 py-2 text-stone-600 hover:text-stone-800 disabled:opacity-50 cursor-pointer active:scale-95 transition-all"
+                       >
+                         Cancel
+                       </button>
+                       <button 
+                         type="submit" 
+                         disabled={isSaving || uploading}
+                         className="px-6 py-2 bg-emerald-900 text-white rounded-sm hover:bg-emerald-800 shadow-sm flex items-center disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer active:scale-95 transition-all"
+                       >
+                         {isSaving ? "Saving..." : <><Save size={18} className="mr-2" /> Save</>}
+                       </button>
                     </div>
                  </form>
                </>
@@ -372,7 +402,7 @@ export function AdminDashboard() {
                     <h2 className="text-xl font-serif text-emerald-950">
                       {editingTestimonial.id.startsWith('new-') ? 'New Review' : 'Edit Review'}
                     </h2>
-                    <button onClick={() => { setIsFormOpen(false); setEditingTestimonial(null); }} className="text-stone-400 hover:text-stone-600">
+                    <button onClick={() => { setIsFormOpen(false); setEditingTestimonial(null); }} className="text-stone-400 hover:text-stone-600 cursor-pointer">
                        <X size={24} />
                     </button>
                  </div>
@@ -418,8 +448,21 @@ export function AdminDashboard() {
                        />
                     </div>
                     <div className="pt-4 border-t border-stone-100 flex justify-end space-x-3">
-                       <button type="button" onClick={() => { setIsFormOpen(false); setEditingTestimonial(null); }} className="px-4 py-2 text-stone-600 hover:text-stone-800">Cancel</button>
-                       <button type="submit" className="px-6 py-2 bg-emerald-900 text-white rounded-sm hover:bg-emerald-800 shadow-sm flex items-center"><Save size={18} className="mr-2" /> Save</button>
+                       <button 
+                         type="button" 
+                         disabled={isSaving}
+                         onClick={() => { setIsFormOpen(false); setEditingTestimonial(null); }} 
+                         className="px-4 py-2 text-stone-600 hover:text-stone-800 disabled:opacity-50 cursor-pointer active:scale-95 transition-all"
+                       >
+                         Cancel
+                       </button>
+                       <button 
+                         type="submit" 
+                         disabled={isSaving}
+                         className="px-6 py-2 bg-emerald-900 text-white rounded-sm hover:bg-emerald-800 shadow-sm flex items-center disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer active:scale-95 transition-all"
+                       >
+                         {isSaving ? "Saving..." : <><Save size={18} className="mr-2" /> Save</>}
+                       </button>
                     </div>
                  </form>
                </>
