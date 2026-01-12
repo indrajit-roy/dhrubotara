@@ -48,7 +48,7 @@ export function Navbar() {
                 Contact
               </button>
             <a 
-              href="https://wa.me/918334030949?text=Hi%2C%20I%20would%20like%20to%20place%20an%20order."
+              href="https://wa.me/919831574424?text=Hi%2C%20I%20would%20like%20to%20place%20an%20order."
               target="_blank"
               rel="noopener noreferrer"
               className="bg-emerald-900 text-stone-50 px-6 py-2 rounded-sm font-sans text-sm tracking-wide hover:bg-emerald-800 transition-all cursor-pointer active:scale-95 inline-block text-center no-underline"
@@ -89,7 +89,7 @@ export function Navbar() {
             </button>
           ))}
           <a
-            href="https://wa.me/918334030949?text=Hi%2C%20I%20would%20like%20to%20place%20an%20order."
+            href="https://wa.me/919831574424?text=Hi%2C%20I%20would%20like%20to%20place%20an%20order."
             target="_blank"
             rel="noopener noreferrer"
             className="w-full bg-emerald-950 text-stone-50 px-6 py-4 mt-6 rounded-sm font-sans text-base tracking-wide active:scale-95 transition-all text-center block cursor-pointer no-underline"

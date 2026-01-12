@@ -19,9 +19,9 @@ export function Footer() {
               <Mail size={18} />
               <span>hello@dhrubotara.com</span>
             </a>
-            <a href="tel:+919876543210" className="flex items-center space-x-3 hover:text-white transition-colors">
+            <a href="tel:+919831574424" className="flex items-center space-x-3 hover:text-white transition-colors">
               <Phone size={18} />
-              <span>+91 98765 43210</span>
+              <span>+91 98315 74424</span>
             </a>
           </div>
 

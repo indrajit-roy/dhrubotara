@@ -117,7 +117,7 @@ export function ProductDetailPage() {
 
             <div className="pt-8 border-t border-stone-200">
                <a 
-                 href={`https://wa.me/918334030949?text=Hi%2C%20I%20am%20interested%20in%20ordering%20${encodeURIComponent(product.name)}`}
+                 href={`https://wa.me/919831574424?text=Hi%2C%20I%20am%20interested%20in%20ordering%20${encodeURIComponent(product.name)}`}
                  target="_blank"
                  rel="noopener noreferrer"
                  className="block w-full sm:w-auto bg-emerald-950 text-stone-50 text-center px-8 py-4 rounded-sm font-sans tracking-wide hover:bg-emerald-900 transition-all active:scale-95 shadow-lg shadow-emerald-900/10 cursor-pointer no-underline flex items-center justify-center"
