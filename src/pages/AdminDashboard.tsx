@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { useProducts } from '../lib/useProducts';
 import { useTestimonials } from '../lib/useTestimonials';
 import { useNavigate } from 'react-router-dom';
-import { LogOut, Plus, Edit2, Trash2, Save, X, Upload, MessageSquare, Package } from 'lucide-react';
+import { LogOut, Plus, Edit2, Trash2, Save, X, Upload, MessageSquare, Package, FileJson } from 'lucide-react';
 import { type Product } from '../data/products';
 import { type Testimonial } from '../data/testimonials';
 import { storage, isFirebaseConfigured } from '../lib/firebase';
@@ -21,6 +21,8 @@ export function AdminDashboard() {
   const [editingTestimonial, setEditingTestimonial] = useState<Testimonial | null>(null);
   
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isSeedOpen, setIsSeedOpen] = useState(false);
+  const [seedJson, setSeedJson] = useState('');
   const [uploading, setUploading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -78,6 +80,30 @@ export function AdminDashboard() {
   const handleDeleteProduct = async (id: string) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
       await deleteProduct(id);
+    }
+  };
+
+  const handleSeedSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSaving(true);
+    try {
+        const data = JSON.parse(seedJson);
+        if (!Array.isArray(data)) throw new Error("JSON must be an array of products");
+        
+        // Process sequentially to avoid overwhelming rate limits if any
+        let count = 0;
+        for (const item of data) {
+            await saveProduct(item);
+            count++;
+        }
+        alert(`Successfully seeded ${count} products.`);
+        setIsSeedOpen(false);
+        setSeedJson('');
+    } catch (err) {
+        console.error(err);
+        alert("Failed to seed data. Check console for details. Ensure JSON is valid.");
+    } finally {
+        setIsSaving(false);
     }
   };
 
@@ -187,12 +213,20 @@ export function AdminDashboard() {
           <>
             <div className="flex justify-between items-center mb-6">
               <h2 className="font-serif text-2xl text-emerald-950">Catalog</h2>
-              <button 
-                onClick={handleCreateProduct}
-                className="bg-emerald-800 text-white px-4 py-2 rounded-sm flex items-center hover:bg-emerald-700 transition-all shadow-sm text-sm cursor-pointer active:scale-95"
-              >
-                <Plus size={16} className="mr-2" /> Add Product
-              </button>
+              <div className="flex space-x-3">
+                  <button 
+                    onClick={() => setIsSeedOpen(true)}
+                    className="bg-stone-200 text-stone-700 px-4 py-2 rounded-sm flex items-center hover:bg-stone-300 transition-all shadow-sm text-sm cursor-pointer active:scale-95"
+                  >
+                    <FileJson size={16} className="mr-2" /> Seed JSON
+                  </button>
+                  <button 
+                    onClick={handleCreateProduct}
+                    className="bg-emerald-800 text-white px-4 py-2 rounded-sm flex items-center hover:bg-emerald-700 transition-all shadow-sm text-sm cursor-pointer active:scale-95"
+                  >
+                    <Plus size={16} className="mr-2" /> Add Product
+                  </button>
+              </div>
             </div>
 
             {pLoading ? (
@@ -287,6 +321,53 @@ export function AdminDashboard() {
       </main>
 
       {/* --- MODALS --- */}
+      {isSeedOpen && (
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+            <div className="bg-white w-full max-w-2xl rounded-sm shadow-2xl overflow-hidden">
+                <div className="flex justify-between items-center px-6 py-4 border-b border-stone-100">
+                    <h2 className="text-xl font-serif text-emerald-950">Seed Database</h2>
+                    <button onClick={() => { setIsSeedOpen(false); setSeedJson(''); }} className="text-stone-400 hover:text-stone-600 cursor-pointer">
+                        <X size={24} />
+                    </button>
+                </div>
+                <form onSubmit={handleSeedSubmit} className="p-6">
+                    <div className="mb-4">
+                        <label className="block text-sm font-medium text-stone-700 mb-1">
+                            Paste JSON Array (products)
+                        </label>
+                        <p className="text-xs text-stone-500 mb-2">
+                            This will upsert products based on ID. Existing products with same ID will be updated.
+                        </p>
+                        <textarea 
+                            rows={10}
+                            value={seedJson}
+                            onChange={(e) => setSeedJson(e.target.value)}
+                            className="w-full border border-stone-300 px-3 py-2 rounded-sm focus:ring-emerald-500 focus:border-emerald-500 font-mono text-xs"
+                            placeholder='[{"id": "1", "name": "..."}]'
+                        />
+                    </div>
+                    <div className="flex justify-end space-x-3">
+                        <button 
+                            type="button" 
+                            disabled={isSaving}
+                            onClick={() => { setIsSeedOpen(false); setSeedJson(''); }}
+                            className="px-4 py-2 text-stone-600 hover:text-stone-800 disabled:opacity-50 cursor-pointer active:scale-95 transition-all"
+                        >
+                            Cancel
+                        </button>
+                        <button 
+                            type="submit" 
+                            disabled={isSaving || !seedJson}
+                            className="px-6 py-2 bg-emerald-900 text-white rounded-sm hover:bg-emerald-800 shadow-sm flex items-center disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer active:scale-95 transition-all"
+                        >
+                            {isSaving ? "Seeding..." : "Seed Data"}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+      )}
+
       {isFormOpen && (
         <div className="fixed inset-0 z-50 overflow-y-auto bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-white w-full max-w-2xl rounded-sm shadow-2xl overflow-hidden">
