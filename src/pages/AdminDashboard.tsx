@@ -55,7 +55,8 @@ export function AdminDashboard() {
       image: 'https://picsum.photos/seed/new/800/800',
       tag: '',
       price: '',
-      features: []
+      features: [],
+      sortPriority: undefined
     });
     setIsFormOpen(true);
   };
@@ -238,6 +239,7 @@ export function AdminDashboard() {
                     <tr>
                       <th className="px-6 py-3 text-left text-xs font-medium text-stone-500 uppercase tracking-wider">Product</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-stone-500 uppercase tracking-wider hidden sm:table-cell">Details</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-stone-500 uppercase tracking-wider hidden sm:table-cell">Priority</th>
                       <th className="px-6 py-3 text-right text-xs font-medium text-stone-500 uppercase tracking-wider">Actions</th>
                     </tr>
                   </thead>
@@ -246,7 +248,7 @@ export function AdminDashboard() {
                       <tr key={product.id} className="hover:bg-stone-50 transition-colors">
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
-                            <div className="h-10 w-10 flex-shrink-0">
+                            <div className="h-10 w-10 shrink-0">
                               <img className="h-10 w-10 rounded-sm object-cover bg-stone-200" src={product.image} alt="" />
                             </div>
                             <div className="ml-4">
@@ -258,6 +260,11 @@ export function AdminDashboard() {
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-stone-500 hidden sm:table-cell">
                           <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-emerald-100 text-emerald-800">
                             {product.tag}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-stone-500 hidden sm:table-cell">
+                          <span className="font-mono text-stone-600">
+                            {product.sortPriority ?? '-'}
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -296,7 +303,7 @@ export function AdminDashboard() {
               <div className="grid gap-4">
                 {testimonials.map((t) => (
                   <div key={t.id} className="bg-white p-6 rounded-sm shadow-sm border border-stone-200 flex justify-between items-start">
-                    <div className="flex-grow pr-8">
+                    <div className="grow pr-8">
                        <div className="flex items-center mb-2">
                           <span className="font-bold text-stone-900 mr-3">{t.name}</span>
                           {t.category && <span className="bg-stone-100 text-stone-600 text-xs px-2 py-0.5 rounded-sm uppercase tracking-wide">{t.category}</span>}
@@ -304,7 +311,7 @@ export function AdminDashboard() {
                        <p className="text-stone-600 text-sm italic">"{t.text}"</p>
                        {t.role && <p className="text-stone-400 text-xs mt-2">{t.role}</p>}
                     </div>
-                    <div className="flex space-x-2 flex-shrink-0">
+                    <div className="flex space-x-2 shrink-0">
                        <button onClick={() => handleEditTestimonial(t)} className="text-emerald-700 hover:text-emerald-900 p-1 cursor-pointer">
                           <Edit2 size={18} />
                        </button>
@@ -413,6 +420,21 @@ export function AdminDashboard() {
                             value={editingProduct.price || ''}
                             onChange={(e) => setEditingProduct({...editingProduct, price: e.target.value})}
                             className="w-full border border-stone-300 px-3 py-2 rounded-sm focus:ring-emerald-500 focus:border-emerald-500"
+                          />
+                       </div>
+                       <div className="col-span-2 sm:col-span-1">
+                          <label className="block text-sm font-medium text-stone-700 mb-1">Sort Priority</label>
+                          <input 
+                            type="number" 
+                            value={editingProduct.sortPriority ?? ''}
+                            onChange={(e) => {
+                              const val = e.target.value;
+                              // Allow typing 0, but treat empty string as no priority
+                              const num = val === '' ? undefined : parseInt(val);
+                              setEditingProduct({...editingProduct, sortPriority: num});
+                            }}
+                            className="w-full border border-stone-300 px-3 py-2 rounded-sm focus:ring-emerald-500 focus:border-emerald-500"
+                            placeholder="Higher = appears first"
                           />
                        </div>
                     </div>

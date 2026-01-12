@@ -3,6 +3,19 @@ import { db, isFirebaseConfigured } from '../lib/firebase';
 import { collection, getDocs, doc, setDoc, deleteDoc } from 'firebase/firestore';
 import { products as staticProducts, type Product } from '../data/products';
 
+// Sort products by sortPriority descending (higher values appear first)
+// Only positive numbers are treated as valid priorities; 0, undefined, null fall back to default order
+const sortProductsByPriority = (products: Product[]): Product[] => {
+  return [...products].sort((a, b) => {
+    const aPriority = a.sortPriority;
+    const bPriority = b.sortPriority;
+    // Treat 0, undefined, null as no priority (use default order)
+    const aValid = typeof aPriority === 'number' && aPriority > 0 ? aPriority : -Infinity;
+    const bValid = typeof bPriority === 'number' && bPriority > 0 ? bPriority : -Infinity;
+    return bValid - aValid;
+  });
+};
+
 // This hook handles data fetching logic
 // It gracefully falls back to static data if Firebase isn't set up yet
 // This allows you to test the UI immediately
@@ -23,27 +36,28 @@ export function useProducts() {
           // But to be helpful, if DB is empty, let's return static data so the site isn't blank
           // In a real app, you'd want empty state.
           // Let's check local storage for "Mock Updates" if not using Firebase
-          setProducts(staticProducts); 
+          setProducts(sortProductsByPriority(staticProducts));
         } else {
-          const dbProducts = querySnapshot.docs.map(doc => ({ 
-            id: doc.id, 
-            ...doc.data() 
+          const dbProducts = querySnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
           })) as Product[];
-          setProducts(dbProducts);
+          setProducts(sortProductsByPriority(dbProducts));
         }
       } else {
         // Fallback: LocalStorage "Mock DB" for demo purposes
         const localData = localStorage.getItem('dhrubotara_products');
         if (localData) {
-          setProducts(JSON.parse(localData));
+          const parsedProducts = JSON.parse(localData) as Product[];
+          setProducts(sortProductsByPriority(parsedProducts));
         } else {
-          setProducts(staticProducts);
+          setProducts(sortProductsByPriority(staticProducts));
         }
       }
     } catch (err) {
       console.error("Error fetching products:", err);
       setError("Failed to load products");
-      setProducts(staticProducts); // Fallback on error
+      setProducts(sortProductsByPriority(staticProducts)); // Fallback on error
     } finally {
       setLoading(false);
     }

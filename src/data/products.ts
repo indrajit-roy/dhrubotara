@@ -7,6 +7,7 @@ export interface Product {
   tag: string;
   price?: string;
   features: string[];
+  sortPriority?: number;
 }
 
 export const products: Product[] = [
@@ -23,7 +24,8 @@ export const products: Product[] = [
       "No Preservatives",
       "Edible Grade",
       "Rich in Lauric Acid"
-    ]
+    ],
+    sortPriority: 10
   },
   {
     id: "burmese-prawn-pickle",
@@ -38,7 +40,8 @@ export const products: Product[] = [
       "Premium Sun-dried Prawns",
       "Hand-pounded Spices",
       "Slow Cooked"
-    ]
+    ],
+    sortPriority: 9
   },
   {
     id: "herbal-cough-remedy",
@@ -53,7 +56,8 @@ export const products: Product[] = [
       "Fresh Ginger & Tulsi",
       "Alcohol Free",
       "Immunity Booster"
-    ]
+    ],
+    sortPriority: 8
   },
   {
     id: "exquisite-spices",
@@ -68,6 +72,7 @@ export const products: Product[] = [
       "High Essential Oil Content",
       "No Added Colors",
       "Sourced from Origin"
-    ]
+    ],
+    sortPriority: 7
   }
 ];
