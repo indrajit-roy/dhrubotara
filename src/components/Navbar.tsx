@@ -32,7 +32,7 @@ export function Navbar() {
           </div>
           
           <div className="hidden md:flex items-center space-x-8">
-            {['Story', 'Products'].map((item) => (
+            {['Story', 'Products', 'Testimonials'].map((item) => (
               <button
                 key={item}
                 onClick={() => handleNavClick(item.toLowerCase())}
@@ -79,7 +79,7 @@ export function Navbar() {
         className="md:hidden overflow-hidden bg-stone-50 border-b border-stone-200"
       >
         <div className="px-4 pt-4 pb-8 space-y-2 flex flex-col items-center">
-          {['Story', 'Products', 'Contact'].map((item) => (
+          {['Story', 'Products', 'Testimonials', 'Contact'].map((item) => (
              <button
               key={item}
               onClick={() => handleNavClick(item.toLowerCase())}
