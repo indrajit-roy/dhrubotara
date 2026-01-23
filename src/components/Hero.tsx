@@ -3,39 +3,65 @@ import { motion } from 'framer-motion';
 
 export function Hero() {
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden bg-[#F5F5F0]">
-      <div className="absolute inset-0 z-0">
-        {/* Abstract background shape */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-900/5 rounded-full blur-3xl" />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#F5F5F0]">
+      {/* Texture overlay */}
+      <div className="absolute inset-0 bg-noise opacity-40 pointer-events-none" />
+
+      {/* Background Elements */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.1, 1],
+            opacity: [0.3, 0.5, 0.3] 
+          }}
+          transition={{ 
+            duration: 10, 
+            repeat: Infinity,
+            ease: "easeInOut" 
+          }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] md:w-[800px] md:h-[800px] bg-emerald-900/5 rounded-full blur-3xl" 
+        />
+        <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-b from-transparent via-white/50 to-[#F5F5F0]" />
       </div>
 
-      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-        <motion.p
+      <div className="relative z-10 text-center px-4 max-w-5xl mx-auto pt-20">
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-emerald-800 font-sans tracking-[0.2em] text-xs md:text-sm uppercase mb-4 md:mb-6"
+          className="flex items-center justify-center gap-4 mb-8"
         >
-          Pure • Homely • Authentic
-        </motion.p>
+          <div className="h-px w-8 md:w-12 bg-emerald-900/30" />
+          <p className="text-emerald-800 font-sans tracking-[0.2em] text-xs md:text-sm uppercase font-medium">
+            Pure • Homely • Authentic
+          </p>
+          <div className="h-px w-8 md:w-12 bg-emerald-900/30" />
+        </motion.div>
         
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="font-serif text-4xl sm:text-5xl md:text-7xl lg:text-8xl text-emerald-950 mb-6 md:mb-8 leading-tight"
+          className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-9xl text-emerald-950 mb-8 md:mb-12 leading-[1.1] md:leading-[1.1]"
         >
-          Nature’s Finest <br /> <span className="italic text-emerald-900/80">for your home.</span>
+          Authentic <span className="italic font-light">Natural</span> <br /> 
+          Remedies <span className="text-4xl md:text-6xl align-middle text-emerald-900/40">&</span> <br />
+          Artisanal Foods
         </motion.h1>
 
-        <motion.p
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-          className="text-stone-600 font-sans text-base md:text-xl max-w-2xl mx-auto leading-relaxed px-4"
+          className="space-y-6"
         >
-          Discover the essence of purity with our handcrafted collection of oils, pickles, and remedies.
-        </motion.p>
+          <p className="text-emerald-900/80 font-serif italic text-xl md:text-2xl">
+            From the heart of Bengal
+          </p>
+          <p className="text-stone-600 font-sans text-base md:text-lg max-w-2xl mx-auto leading-relaxed px-4">
+            Nature heals. Its magic works miracles when used in the right measure.
+          </p>
+        </motion.div>
       </div>
     </section>
   );

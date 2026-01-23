@@ -4,7 +4,7 @@ import { FadeInImage } from './ui/FadeInImage';
 
 export function About() {
   return (
-    <section id="story" className="py-16 md:py-32 bg-white overflow-hidden">
+    <section id="story" className="py-16 md:py-24 bg-white overflow-hidden border-b border-stone-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
           <motion.div
@@ -14,18 +14,17 @@ export function About() {
             transition={{ duration: 0.8 }}
             className="relative"
           >
-             <div className="aspect-[4/5] bg-stone-200 overflow-hidden rounded-sm">
+             <div className="aspect-[4/5] bg-stone-200 overflow-hidden rounded-sm shadow-xl">
                 <FadeInImage
                   src="/trees.jpg"
-                  alt="Making process"
+                  alt="Nature"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
                   containerClassName="w-full h-full"
                   className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                 />
              </div>
-             {/* Decorative element */}
-             <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-emerald-50 -z-10 rounded-full" />
+             <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-emerald-50 -z-10 rounded-full" />
           </motion.div>
 
           <motion.div
@@ -35,17 +34,20 @@ export function About() {
             transition={{ duration: 0.8 }}
           >
             <h2 className="font-serif text-4xl md:text-5xl text-emerald-950 mb-8">
-              The Dhrubotara Promise
+              Our Story
             </h2>
             <div className="space-y-6 text-stone-600 font-sans text-lg leading-relaxed">
               <p>
-                Like the North Star that guides travelers, <strong>Dhrubotara</strong> stands as a beacon of authenticity in a world of mass production.
+                At Dhrubotara, we inherited a rich legacy of having lovingly curated the rare and precious resources of nature to care and cure. It’s a tradition of love passed down through generations bottled with love for your everyday nourishment and care.
               </p>
               <p>
-                We believe in the healing power of nature and the comfort of homemade traditions. Every bottle of coconut oil, every jar of pickle, and every remedy is crafted with the same care and love as if it were for our own family.
+                Natural remedies, artisanal condiments, gourmet accents that are rich in the flavours of Bengal’s heritage and culture. Each one tried, tested and treasured.
               </p>
               <p>
-                Sourced directly from trusted growers and prepared using age-old recipes, our products bring the purest essence of the earth straight to your doorstep.
+                We source our ingredients from people who know nature the best and package them with extreme care to keep their natural richness intact. You deserve only the purest, the richest and the choiciest of all that nature has to offer.
+              </p>
+              <p className="font-serif italic text-emerald-900 text-xl pt-2">
+                &ldquo;Dip into its bounty with every Dhrubotara product.&rdquo;
               </p>
             </div>
           </motion.div>
