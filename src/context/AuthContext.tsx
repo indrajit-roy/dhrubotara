@@ -1,3 +1,5 @@
+"use client";
+
 import {
   createContext,
   useContext,
@@ -26,14 +28,13 @@ const AUTHORIZED_NUMBERS = ["+918334030949"];
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!!auth);
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     // In "Mock Mode" (no firebase keys), we might want to skip this or simulate
     // But for the real implementation:
     if (!auth) {
-      setLoading(false);
       return;
     }
 

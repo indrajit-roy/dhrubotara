@@ -1,3 +1,4 @@
+"use client";
 import { ProductCard } from './ProductCard';
 import { useProducts } from '../lib/useProducts';
 import { Skeleton } from './ui/Skeleton';

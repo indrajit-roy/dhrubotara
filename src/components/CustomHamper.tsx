@@ -1,3 +1,4 @@
+"use client";
 import { motion } from 'framer-motion';
 import { Phone } from 'lucide-react';
 import { FadeInImage } from './ui/FadeInImage';
@@ -77,9 +78,11 @@ export function CustomHamper() {
             className="order-1 lg:order-2 relative"
           >
             <div className="aspect-square relative rounded-full overflow-hidden border-4 border-emerald-900/50 shadow-2xl">
-               <FadeInImage 
-                  src="/hamper.png" 
-                  alt="Customized Hamper with Jars" 
+               <FadeInImage
+                  src="/hamper.png"
+                  alt="Customized Hamper with Jars"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                   containerClassName="w-full h-full"
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                 />

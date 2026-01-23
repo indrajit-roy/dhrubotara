@@ -1,17 +1,19 @@
+"use client";
+
 import { motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { usePathname, useRouter } from 'next/navigation';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation();
-  const navigate = useNavigate();
+  const pathname = usePathname();
+  const router = useRouter();
 
   const handleNavClick = (id: string) => {
     setIsOpen(false);
-    if (location.pathname !== '/') {
-      navigate('/');
+    if (pathname !== '/') {
+      router.push('/');
       setTimeout(() => {
         const element = document.getElementById(id);
         if (element) element.scrollIntoView({ behavior: 'smooth' });

@@ -1,5 +1,6 @@
+"use client";
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { FadeInImage } from './ui/FadeInImage';
 
 interface ProductProps {
@@ -12,7 +13,7 @@ interface ProductProps {
 
 export function ProductCard({ id, name, description, image, tag }: ProductProps) {
   return (
-    <Link to={`/product/${id}`} className="block">
+    <Link href={`/product/${id}`} className="block">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -22,9 +23,11 @@ export function ProductCard({ id, name, description, image, tag }: ProductProps)
         className="group cursor-pointer"
       >
         <div className="relative aspect-square overflow-hidden bg-stone-100 mb-6">
-          <FadeInImage 
-            src={image} 
+          <FadeInImage
+            src={image}
             alt={name}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             containerClassName="w-full h-full"
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
