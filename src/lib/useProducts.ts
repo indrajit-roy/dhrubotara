@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { db, isFirebaseConfigured } from '../lib/firebase';
+import { db } from '../lib/firebase';
 import { collection, getDocs, doc, setDoc, deleteDoc } from 'firebase/firestore';
-import { products as staticProducts, type Product } from '../data/products';
+import type { Product } from './types';
 
 // Sort products by sortPriority descending (higher values appear first)
 // Only positive numbers are treated as valid priorities; 0, undefined, null fall back to default order
@@ -16,10 +16,6 @@ const sortProductsByPriority = (products: Product[]): Product[] => {
   });
 };
 
-// This hook handles data fetching logic
-// It gracefully falls back to static data if Firebase isn't set up yet
-// This allows you to test the UI immediately
-
 export function useProducts(initialData?: Product[] | null) {
   const [products, setProducts] = useState<Product[]>(initialData || []);
   const [loading, setLoading] = useState(!initialData);
@@ -28,36 +24,17 @@ export function useProducts(initialData?: Product[] | null) {
   const fetchProducts = async () => {
     setLoading(true);
     try {
-      if (isFirebaseConfigured && db) {
-        // Fetch from Firebase
-        const querySnapshot = await getDocs(collection(db, "products"));
-        if (querySnapshot.empty) {
-          // If DB is empty, maybe seed it? For now, fall back or show empty
-          // But to be helpful, if DB is empty, let's return static data so the site isn't blank
-          // In a real app, you'd want empty state.
-          // Let's check local storage for "Mock Updates" if not using Firebase
-          setProducts(sortProductsByPriority(staticProducts));
-        } else {
-          const dbProducts = querySnapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data()
-          })) as Product[];
-          setProducts(sortProductsByPriority(dbProducts));
-        }
-      } else {
-        // Fallback: LocalStorage "Mock DB" for demo purposes
-        const localData = localStorage.getItem('dhrubotara_products');
-        if (localData) {
-          const parsedProducts = JSON.parse(localData) as Product[];
-          setProducts(sortProductsByPriority(parsedProducts));
-        } else {
-          setProducts(sortProductsByPriority(staticProducts));
-        }
-      }
+      if (!db) throw new Error("Firebase Firestore not initialized");
+
+      const querySnapshot = await getDocs(collection(db, "products"));
+      const dbProducts = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      })) as Product[];
+      setProducts(sortProductsByPriority(dbProducts));
     } catch (err) {
       console.error("Error fetching products:", err);
       setError("Failed to load products");
-      setProducts(sortProductsByPriority(staticProducts)); // Fallback on error
     } finally {
       setLoading(false);
     }
@@ -70,34 +47,17 @@ export function useProducts(initialData?: Product[] | null) {
   }, [initialData]);
 
   const saveProduct = async (product: Product) => {
-    if (isFirebaseConfigured && db) {
-      // Save to Firebase
-      const productRef = doc(collection(db, "products"), product.id);
-      // Check if exists to determine update vs set, or just use setDoc with merge
-      await setDoc(productRef, product, { merge: true });
-    } else {
-      // Save to LocalStorage (Mock)
-      const newProducts = [...products];
-      const index = newProducts.findIndex(p => p.id === product.id);
-      if (index >= 0) {
-        newProducts[index] = product;
-      } else {
-        newProducts.push(product);
-      }
-      localStorage.setItem('dhrubotara_products', JSON.stringify(newProducts));
-      setProducts(newProducts);
-    }
+    if (!db) throw new Error("Firebase Firestore not initialized");
+
+    const productRef = doc(collection(db, "products"), product.id);
+    await setDoc(productRef, product, { merge: true });
     await fetchProducts(); // Refresh
   };
 
   const deleteProduct = async (id: string) => {
-    if (isFirebaseConfigured && db) {
-      await deleteDoc(doc(db, "products", id));
-    } else {
-        const newProducts = products.filter(p => p.id !== id);
-        localStorage.setItem('dhrubotara_products', JSON.stringify(newProducts));
-        setProducts(newProducts);
-    }
+    if (!db) throw new Error("Firebase Firestore not initialized");
+    
+    await deleteDoc(doc(db, "products", id));
     await fetchProducts();
   };
 

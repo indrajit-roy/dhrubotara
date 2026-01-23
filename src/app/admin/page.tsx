@@ -2,7 +2,7 @@
 
 import { useState, useEffect, type FormEvent } from 'react';
 import { RecaptchaVerifier, signInWithPhoneNumber, type ConfirmationResult } from 'firebase/auth';
-import { auth, isFirebaseConfigured } from '@/lib/firebase';
+import { auth } from '@/lib/firebase';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Phone, Lock, ArrowRight, CheckCircle2, AlertCircle } from 'lucide-react';
@@ -44,15 +44,6 @@ export default function AdminLogin() {
     setError('');
     setLoading(true);
 
-    if (!isFirebaseConfigured) {
-       // Mock Login for Demo
-       setTimeout(() => {
-         setStep('otp');
-         setLoading(false);
-       }, 1000);
-       return;
-    }
-
     try {
       // Format phone number: Ensure it has country code if missing
       const formattedNumber = phoneNumber.startsWith('+') ? phoneNumber : `+91${phoneNumber}`;
@@ -89,20 +80,6 @@ export default function AdminLogin() {
     e.preventDefault();
     setError('');
     setLoading(true);
-
-    if (!isFirebaseConfigured) {
-        // Mock Verification
-        if (otp === '123456') {
-            // We can't actually "login" to firebase without real keys
-            // But we can simulate a redirect to dashboard which might use local storage
-            localStorage.setItem('mock_admin_logged_in', 'true');
-            router.push('/admin/dashboard');
-        } else {
-            setError('Invalid Mock OTP. Use 123456');
-            setLoading(false);
-        }
-        return;
-    }
 
     try {
       if (confirmationResult) {
@@ -207,18 +184,6 @@ export default function AdminLogin() {
                 Wrong number? Go back
             </button>
           </form>
-        )}
-        
-        {!isFirebaseConfigured && (
-            <div className="mt-8 pt-6 border-t border-stone-100 text-center">
-                <span className="inline-block bg-amber-100 text-amber-800 text-xs px-2 py-1 rounded font-mono">
-                    DEMO MODE
-                </span>
-                <p className="text-xs text-stone-400 mt-2">
-                    Firebase keys missing. Login simulating...<br/>
-                    Enter any number. Use OTP: <b>123456</b>
-                </p>
-            </div>
         )}
       </motion.div>
     </div>

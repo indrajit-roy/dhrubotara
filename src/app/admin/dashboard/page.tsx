@@ -7,9 +7,8 @@ import { useTestimonials } from '@/lib/useTestimonials';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { LogOut, Plus, Edit2, Trash2, Save, X, Upload, MessageSquare, Package, FileJson } from 'lucide-react';
-import { type Product } from '@/data/products';
-import { type Testimonial } from '@/data/testimonials';
-import { storage, isFirebaseConfigured } from '@/lib/firebase';
+import { type Product, type Testimonial } from '@/lib/types';
+import { storage } from '@/lib/firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 export default function AdminDashboard() {
@@ -30,22 +29,13 @@ export default function AdminDashboard() {
   const [isSaving, setIsSaving] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Simple protection: Check mock auth or real auth
-  // In Next.js, localStorage isn't available on server, so check window existence or use useEffect
-  let isMockAuth = false;
-  if (typeof window !== 'undefined') {
-      isMockAuth = !isFirebaseConfigured && localStorage.getItem('mock_admin_logged_in') === 'true';
-  }
-
   useEffect(() => {
     if (authLoading) return;
-
-    if (isMockAuth) return;
 
     if (!user || !isAdmin) {
       router.push('/admin');
     }
-  }, [user, isAdmin, authLoading, isMockAuth, router]);
+  }, [user, isAdmin, authLoading, router]);
 
   if (authLoading) {
     return (
@@ -56,7 +46,6 @@ export default function AdminDashboard() {
   }
 
   const handleLogout = async () => {
-    if (isMockAuth) localStorage.removeItem('mock_admin_logged_in');
     await signOut();
     router.push('/admin');
   };
@@ -173,11 +162,6 @@ export default function AdminDashboard() {
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file || !editingProduct) return;
-
-    if (!isFirebaseConfigured) {
-        alert("Image upload requires Firebase Storage (Not configured in Demo Mode).");
-        return;
-    }
 
     setUploading(true);
     try {

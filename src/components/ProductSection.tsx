@@ -2,7 +2,7 @@
 import { ProductCard } from './ProductCard';
 import { useProducts } from '../lib/useProducts';
 import { Skeleton } from './ui/Skeleton';
-import { type Product } from '../data/products';
+import { type Product } from '@/lib/types';
 
 interface ProductSectionProps {
   preloadedProducts?: Product[] | null;

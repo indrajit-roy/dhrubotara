@@ -31,8 +31,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    // In "Mock Mode" (no firebase keys), we might want to skip this or simulate
-    // But for the real implementation:
     if (!auth) {
       return;
     }

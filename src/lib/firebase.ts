@@ -23,13 +23,10 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 };
 
-// Initialize Firebase only if keys exist (prevents crashing during dev/mock mode)
-const app = (firebaseConfig.apiKey && getApps().length === 0) 
-  ? initializeApp(firebaseConfig) 
-  : getApps().length > 0 ? getApp() : undefined;
+// Initialize Firebase
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 
-export const auth = app ? getAuth(app) : undefined;
-export const db = app ? getFirestore(app) : undefined;
-export const storage = app ? getStorage(app) : undefined;
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+export const storage = getStorage(app);
 
-export const isFirebaseConfigured = !!app;

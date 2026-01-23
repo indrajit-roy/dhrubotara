@@ -5,8 +5,6 @@
 ### Business Constants
 - **Contact Phone:** `+91 98315 74424` (used site-wide)
 - **WhatsApp Link:** `https://wa.me/919831574424`
-- **Admin Phone (Mock Mode):** Any number accepted
-- **Admin OTP (Mock Mode):** `123456`
 
 ### Essential Commands
 ```bash
@@ -131,24 +129,13 @@ lib/
 
 context/
 └── AuthContext.tsx        # Auth state management
-
-data/
-└── mockData.ts            # Fallback data for Mock Mode
 ```
 
 ### Key Abstractions
 
 #### Hybrid Data Fetching
 - **Current:** Client-side fetching via custom hooks (`useProducts`, `useTestimonials`)
-- **Why:** Simplifies Mock Mode fallback (localStorage + static data)
 - **Future:** Can migrate to Server Components for SEO-critical sections
-
-#### Mock Mode
-- **Trigger:** When Firebase env vars are missing (`.env` not configured)
-- **Behavior:**
-  - Data hooks fallback to `localStorage` + static data from `data/mockData.ts`
-  - Admin login accepts any phone number + OTP `123456`
-  - `isFirebaseConfigured` flag in `lib/firebase.ts` controls this
 
 #### Authentication Flow
 - **Provider:** `AuthContext` wraps app in `layout.tsx`
@@ -404,11 +391,6 @@ images: {
 ### Dev Server Restart Required
 **When:** After editing `next.config.ts`, `tsconfig.json`, or installing packages
 **Fix:** Stop (`Ctrl+C`) and restart (`bun dev`)
-
-### Firebase Errors in Mock Mode (Expected)
-**When:** Running without `.env` file configured
-**Behavior:** Console shows Firebase init errors, but app works via fallback
-**Status:** Normal - Mock Mode is working as designed
 
 ### Admin Dashboard Auth Redirect Loop
 **Cause:** `router.push()` called during render instead of in `useEffect`

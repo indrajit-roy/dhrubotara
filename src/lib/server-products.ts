@@ -1,6 +1,6 @@
-import { db, isFirebaseConfigured } from './firebase';
+import { db } from './firebase';
 import { collection, getDocs } from 'firebase/firestore';
-import { type Product } from '../data/products';
+import { type Product } from '@/lib/types';
 
 // Duplicate priority logic for server-side
 const sortProductsByPriority = (products: Product[]): Product[] => {
@@ -14,10 +14,7 @@ const sortProductsByPriority = (products: Product[]): Product[] => {
 };
 
 export async function getProductsServer(): Promise<Product[] | null> {
-  // If not configured, return null so client can handle LocalStorage/Mock mode
-  if (!isFirebaseConfigured || !db) {
-    return null;
-  }
+  if (!db) return null;
 
   try {
     const querySnapshot = await getDocs(collection(db, "products"));
