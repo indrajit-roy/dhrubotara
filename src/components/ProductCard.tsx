@@ -9,12 +9,13 @@ interface ProductProps {
   description: string;
   image: string;
   tag: string;
+  priority?: boolean;
 }
 
-export function ProductCard({ id, name, description, image, tag }: ProductProps) {
+export function ProductCard({ id, name, description, image, tag, priority }: ProductProps) {
   return (
     <Link href={`/product/${id}`} className="block">
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -27,6 +28,7 @@ export function ProductCard({ id, name, description, image, tag }: ProductProps)
             src={image}
             alt={name}
             fill
+            priority={priority}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             containerClassName="w-full h-full"
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
