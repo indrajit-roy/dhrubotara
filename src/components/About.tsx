@@ -1,3 +1,4 @@
+"use client";
 import { motion } from 'framer-motion';
 import { FadeInImage } from './ui/FadeInImage';
 
@@ -14,9 +15,11 @@ export function About() {
             className="relative"
           >
              <div className="aspect-[4/5] bg-stone-200 overflow-hidden rounded-sm">
-                <FadeInImage 
-                  src="https://picsum.photos/seed/dhrubotara1/800/1000" 
-                  alt="Making process" 
+                <FadeInImage
+                  src="/trees.jpg"
+                  alt="Making process"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   containerClassName="w-full h-full"
                   className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                 />

@@ -1,20 +1,23 @@
-import { useState, useRef } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { useProducts } from '../lib/useProducts';
-import { useTestimonials } from '../lib/useTestimonials';
-import { useNavigate } from 'react-router-dom';
+"use client";
+
+import { useState, useRef, useEffect } from 'react';
+import { useAuth } from '@/context/AuthContext';
+import { useProducts } from '@/lib/useProducts';
+import { useTestimonials } from '@/lib/useTestimonials';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { LogOut, Plus, Edit2, Trash2, Save, X, Upload, MessageSquare, Package, FileJson } from 'lucide-react';
-import { type Product } from '../data/products';
-import { type Testimonial } from '../data/testimonials';
-import { storage, isFirebaseConfigured } from '../lib/firebase';
+import { type Product } from '@/data/products';
+import { type Testimonial } from '@/data/testimonials';
+import { storage, isFirebaseConfigured } from '@/lib/firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
-export function AdminDashboard() {
-  const { user, signOut } = useAuth();
+export default function AdminDashboard() {
+  const { user, signOut, isAdmin, loading: authLoading } = useAuth();
   const { products, loading: pLoading, saveProduct, deleteProduct } = useProducts();
   const { testimonials, loading: tLoading, saveTestimonial, deleteTestimonial } = useTestimonials();
   
-  const navigate = useNavigate();
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<'products' | 'testimonials'>('products');
   
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
@@ -28,16 +31,34 @@ export function AdminDashboard() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Simple protection: Check mock auth or real auth
-  const isMockAuth = !isFirebaseConfigured && localStorage.getItem('mock_admin_logged_in') === 'true';
-  
-  if (!user && !isMockAuth) {
-    // In a real app we'd redirect
+  // In Next.js, localStorage isn't available on server, so check window existence or use useEffect
+  let isMockAuth = false;
+  if (typeof window !== 'undefined') {
+      isMockAuth = !isFirebaseConfigured && localStorage.getItem('mock_admin_logged_in') === 'true';
+  }
+
+  useEffect(() => {
+    if (authLoading) return;
+
+    if (isMockAuth) return;
+
+    if (!user || !isAdmin) {
+      router.push('/admin');
+    }
+  }, [user, isAdmin, authLoading, isMockAuth, router]);
+
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-stone-50">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-900"></div>
+      </div>
+    );
   }
 
   const handleLogout = async () => {
     if (isMockAuth) localStorage.removeItem('mock_admin_logged_in');
     await signOut();
-    navigate('/admin');
+    router.push('/admin');
   };
 
   // --- Product Handlers ---
@@ -248,8 +269,8 @@ export function AdminDashboard() {
                       <tr key={product.id} className="hover:bg-stone-50 transition-colors">
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
-                            <div className="h-10 w-10 shrink-0">
-                              <img className="h-10 w-10 rounded-sm object-cover bg-stone-200" src={product.image} alt="" />
+                            <div className="h-10 w-10 shrink-0 relative">
+                              <Image className="rounded-sm object-cover bg-stone-200" src={product.image} alt="" fill sizes="40px" />
                             </div>
                             <div className="ml-4">
                               <div className="text-sm font-medium text-stone-900">{product.name}</div>
@@ -308,7 +329,7 @@ export function AdminDashboard() {
                           <span className="font-bold text-stone-900 mr-3">{t.name}</span>
                           {t.category && <span className="bg-stone-100 text-stone-600 text-xs px-2 py-0.5 rounded-sm uppercase tracking-wide">{t.category}</span>}
                        </div>
-                       <p className="text-stone-600 text-sm italic">"{t.text}"</p>
+                       <p className="text-stone-600 text-sm italic">&quot;{t.text}&quot;</p>
                        {t.role && <p className="text-stone-400 text-xs mt-2">{t.role}</p>}
                     </div>
                     <div className="flex space-x-2 shrink-0">
@@ -441,7 +462,9 @@ export function AdminDashboard() {
                     <div>
                         <label className="block text-sm font-medium text-stone-700 mb-1">Image</label>
                         <div className="flex items-center space-x-4">
-                            <img src={editingProduct.image} alt="Preview" className="h-16 w-16 object-cover rounded-sm bg-stone-100" />
+                            <div className="relative h-16 w-16">
+                                <Image src={editingProduct.image} alt="Preview" className="object-cover rounded-sm bg-stone-100" fill sizes="64px" />
+                            </div>
                             <button 
                                 type="button"
                                 onClick={() => fileInputRef.current?.click()}

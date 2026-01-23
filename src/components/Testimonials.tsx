@@ -1,3 +1,4 @@
+"use client";
 import { motion } from 'framer-motion';
 import { Quote } from 'lucide-react';
 import { useTestimonials } from '../lib/useTestimonials';
@@ -54,7 +55,7 @@ export function Testimonials() {
                     </span>
                   )}
                   <p className="text-stone-600 font-serif italic text-base leading-relaxed mb-6">
-                    "{t.text}"
+                    &quot;{t.text}&quot;
                   </p>
                 </div>
 

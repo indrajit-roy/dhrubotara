@@ -1,25 +1,31 @@
-import { useState, type FormEvent } from 'react';
+"use client";
+
+import { useState, useEffect, type FormEvent } from 'react';
 import { RecaptchaVerifier, signInWithPhoneNumber, type ConfirmationResult } from 'firebase/auth';
-import { auth, isFirebaseConfigured } from '../lib/firebase';
-import { useNavigate } from 'react-router-dom';
+import { auth, isFirebaseConfigured } from '@/lib/firebase';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Phone, Lock, ArrowRight, CheckCircle2, AlertCircle } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '@/context/AuthContext';
 
-export function AdminLogin() {
+import { verifyAdmin } from '@/app/actions/auth';
+
+export default function AdminLogin() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [otp, setOtp] = useState('');
   const [step, setStep] = useState<'phone' | 'otp'>('phone');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [confirmationResult, setConfirmationResult] = useState<ConfirmationResult | null>(null);
-  const navigate = useNavigate();
-  const { user } = useAuth();
+  const router = useRouter();
+  const { user, isAdmin, loading: authLoading } = useAuth();
 
   // Redirect if already logged in
-  if (user) {
-    navigate('/admin/dashboard');
-  }
+  useEffect(() => {
+    if (!authLoading && user && isAdmin) {
+      router.push('/admin/dashboard');
+    }
+  }, [user, isAdmin, authLoading, router]);
 
   const setupRecaptcha = () => {
     if (!auth) return;
@@ -48,18 +54,32 @@ export function AdminLogin() {
     }
 
     try {
+      // Format phone number: Ensure it has country code if missing
+      const formattedNumber = phoneNumber.startsWith('+') ? phoneNumber : `+91${phoneNumber}`;
+
+      // 1. Verify if this number is an admin BEFORE sending OTP
+      // This runs on the server, so the list remains hidden
+      const isAuthorized = await verifyAdmin(formattedNumber);
+      if (!isAuthorized) {
+        throw new Error("Unauthorized Access. This phone number is not an admin.");
+      }
+
       setupRecaptcha();
       const appVerifier = window.recaptchaVerifier;
       if (auth && appVerifier) {
-         // Format phone number: Ensure it has country code if missing (Simple assumption)
-         const formattedNumber = phoneNumber.startsWith('+') ? phoneNumber : `+91${phoneNumber}`;
          const result = await signInWithPhoneNumber(auth, formattedNumber, appVerifier);
          setConfirmationResult(result);
          setStep('otp');
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err);
-      setError(err.message || "Failed to send OTP. Check console.");
+      let message = "Failed to send OTP. Check console.";
+      if (err instanceof Error) {
+        message = err.message;
+      } else if (typeof err === 'object' && err !== null && 'message' in err) {
+         message = (err as { message: string }).message;
+      }
+      setError(message);
     } finally {
       setLoading(false);
     }
@@ -76,7 +96,7 @@ export function AdminLogin() {
             // We can't actually "login" to firebase without real keys
             // But we can simulate a redirect to dashboard which might use local storage
             localStorage.setItem('mock_admin_logged_in', 'true');
-            navigate('/admin/dashboard');
+            router.push('/admin/dashboard');
         } else {
             setError('Invalid Mock OTP. Use 123456');
             setLoading(false);
@@ -87,9 +107,9 @@ export function AdminLogin() {
     try {
       if (confirmationResult) {
         await confirmationResult.confirm(otp);
-        navigate('/admin/dashboard');
+        router.push('/admin/dashboard');
       }
-    } catch (err: any) {
+    } catch {
       setError("Invalid OTP. Please try again.");
     } finally {
       setLoading(false);
@@ -208,6 +228,6 @@ export function AdminLogin() {
 // Global declaration for recaptcha
 declare global {
   interface Window {
-    recaptchaVerifier: any;
+    recaptchaVerifier: RecaptchaVerifier;
   }
 }

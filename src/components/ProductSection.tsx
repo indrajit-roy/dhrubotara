@@ -1,9 +1,15 @@
+"use client";
 import { ProductCard } from './ProductCard';
 import { useProducts } from '../lib/useProducts';
 import { Skeleton } from './ui/Skeleton';
+import { type Product } from '../data/products';
 
-export function ProductSection() {
-  const { products, loading } = useProducts();
+interface ProductSectionProps {
+  preloadedProducts?: Product[] | null;
+}
+
+export function ProductSection({ preloadedProducts }: ProductSectionProps) {
+  const { products, loading } = useProducts(preloadedProducts);
 
   return (
     <section id="products" className="py-16 md:py-24 bg-[#F5F5F0]">
@@ -29,8 +35,8 @@ export function ProductSection() {
            </div>
         ) : products.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10 md:gap-y-12">
-            {products.map((product) => (
-              <ProductCard key={product.id} {...product} />
+            {products.map((product, index) => (
+              <ProductCard key={product.id} {...product} priority={index < 4} />
             ))}
           </div>
         ) : (

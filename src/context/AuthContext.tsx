@@ -1,3 +1,5 @@
+"use client";
+
 import {
   createContext,
   useContext,
@@ -11,6 +13,7 @@ import {
   signOut as firebaseSignOut,
 } from "firebase/auth";
 import { auth } from "../lib/firebase"; // We will create this next
+import { verifyAdmin } from "@/app/actions/auth";
 
 interface AuthContextType {
   user: User | null;
@@ -21,29 +24,25 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
-// TODO: Replace this with your mom's actual phone number(s)
-const AUTHORIZED_NUMBERS = ["+918334030949"];
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!!auth);
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     // In "Mock Mode" (no firebase keys), we might want to skip this or simulate
     // But for the real implementation:
     if (!auth) {
-      setLoading(false);
       return;
     }
 
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
       if (currentUser && currentUser.phoneNumber) {
-        // Simple authorization check
-        // In a real production app, you might store "roles" in the database
-        // But for a personal site, a hardcoded list is secure enough and easiest
-        setIsAdmin(AUTHORIZED_NUMBERS.includes(currentUser.phoneNumber));
+        // Check server-side to hide the admin list
+        const isAuthorized = await verifyAdmin(currentUser.phoneNumber);
+        setIsAdmin(isAuthorized);
       } else {
         setIsAdmin(false);
       }

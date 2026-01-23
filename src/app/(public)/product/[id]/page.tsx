@@ -1,20 +1,25 @@
-import { useParams, Link } from 'react-router-dom';
+"use client";
+
+import { useParams } from 'next/navigation';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Check } from 'lucide-react';
-import { useProducts } from '../lib/useProducts';
+import { useProducts } from '@/lib/useProducts';
 import { useEffect } from 'react';
-import { Skeleton } from '../components/ui/Skeleton';
-import { FadeInImage } from '../components/ui/FadeInImage';
+import { Skeleton } from '@/components/ui/Skeleton';
+import { FadeInImage } from '@/components/ui/FadeInImage';
 
-export function ProductDetailPage() {
+export default function ProductDetailPage() {
   const { id } = useParams<{ id: string }>();
   const { products, loading } = useProducts();
   
-  const product = products.find((p) => p.id === id);
+  // Ensure id is a string (useParams can return string or array)
+  const productId = Array.isArray(id) ? id[0] : id;
+  const product = products.find((p) => p.id === productId);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [id]);
+  }, [productId]);
 
   if (loading) {
     return (
@@ -46,7 +51,7 @@ export function ProductDetailPage() {
       <div className="min-h-screen flex items-center justify-center bg-stone-50">
         <div className="text-center">
           <h2 className="font-serif text-3xl text-emerald-950 mb-4">Product Not Found</h2>
-          <Link to="/" className="text-emerald-800 hover:text-emerald-600 underline">Return Home</Link>
+          <Link href="/" className="text-emerald-800 hover:text-emerald-600 underline">Return Home</Link>
         </div>
       </div>
     );
@@ -56,7 +61,7 @@ export function ProductDetailPage() {
     <div className="min-h-screen bg-stone-50 pt-24 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <Link to="/" className="inline-flex items-center text-stone-500 hover:text-emerald-900 mb-8 transition-colors group">
+        <Link href="/" className="inline-flex items-center text-stone-500 hover:text-emerald-900 mb-8 transition-colors group">
           <ArrowLeft size={20} className="mr-2 group-hover:-translate-x-1 transition-transform" />
           <span className="font-sans text-sm tracking-wide uppercase">Back to Collection</span>
         </Link>
@@ -70,9 +75,12 @@ export function ProductDetailPage() {
             className="bg-white p-4 lg:p-8 shadow-sm"
           >
             <div className="aspect-square bg-stone-100 overflow-hidden relative">
-              <FadeInImage 
-                src={product.image} 
-                alt={product.name} 
+              <FadeInImage
+                src={product.image}
+                alt={product.name}
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                priority
                 containerClassName="w-full h-full"
                 className="w-full h-full object-cover"
               />

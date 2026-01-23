@@ -20,9 +20,9 @@ const sortProductsByPriority = (products: Product[]): Product[] => {
 // It gracefully falls back to static data if Firebase isn't set up yet
 // This allows you to test the UI immediately
 
-export function useProducts() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
+export function useProducts(initialData?: Product[] | null) {
+  const [products, setProducts] = useState<Product[]>(initialData || []);
+  const [loading, setLoading] = useState(!initialData);
   const [error, setError] = useState<string | null>(null);
 
   const fetchProducts = async () => {
@@ -64,8 +64,10 @@ export function useProducts() {
   };
 
   useEffect(() => {
-    fetchProducts();
-  }, []);
+    if (!initialData) {
+      fetchProducts();
+    }
+  }, [initialData]);
 
   const saveProduct = async (product: Product) => {
     if (isFirebaseConfigured && db) {
