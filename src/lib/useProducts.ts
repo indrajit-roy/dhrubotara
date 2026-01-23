@@ -1,6 +1,4 @@
-import { useState, useEffect } from 'react';
-import { db } from '../lib/firebase';
-import { collection, getDocs, doc, setDoc, deleteDoc } from 'firebase/firestore';
+import { useCollection } from './useCollection';
 import type { Product } from './types';
 
 // Sort products by sortPriority descending (higher values appear first)
@@ -17,49 +15,17 @@ const sortProductsByPriority = (products: Product[]): Product[] => {
 };
 
 export function useProducts(initialData?: Product[] | null) {
-  const [products, setProducts] = useState<Product[]>(initialData || []);
-  const [loading, setLoading] = useState(!initialData);
-  const [error, setError] = useState<string | null>(null);
+  const { 
+    data: products, 
+    loading, 
+    error, 
+    saveItem: saveProduct, 
+    deleteItem: deleteProduct, 
+    refresh 
+  } = useCollection<Product>("products", {
+    initialData,
+    sort: sortProductsByPriority
+  });
 
-  const fetchProducts = async () => {
-    setLoading(true);
-    try {
-      if (!db) throw new Error("Firebase Firestore not initialized");
-
-      const querySnapshot = await getDocs(collection(db, "products"));
-      const dbProducts = querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      })) as Product[];
-      setProducts(sortProductsByPriority(dbProducts));
-    } catch (err) {
-      console.error("Error fetching products:", err);
-      setError("Failed to load products");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (!initialData) {
-      fetchProducts();
-    }
-  }, [initialData]);
-
-  const saveProduct = async (product: Product) => {
-    if (!db) throw new Error("Firebase Firestore not initialized");
-
-    const productRef = doc(collection(db, "products"), product.id);
-    await setDoc(productRef, product, { merge: true });
-    await fetchProducts(); // Refresh
-  };
-
-  const deleteProduct = async (id: string) => {
-    if (!db) throw new Error("Firebase Firestore not initialized");
-    
-    await deleteDoc(doc(db, "products", id));
-    await fetchProducts();
-  };
-
-  return { products, loading, error, saveProduct, deleteProduct, refresh: fetchProducts };
+  return { products, loading, error, saveProduct, deleteProduct, refresh };
 }

@@ -5,6 +5,8 @@ import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 
+const NAV_ITEMS = ['Story', 'Products', 'Testimonials', 'Contact'];
+
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
@@ -34,7 +36,7 @@ export function Navbar() {
           </div>
           
           <div className="hidden md:flex items-center space-x-8">
-            {['Story', 'Products', 'Testimonials'].map((item) => (
+            {NAV_ITEMS.map((item) => (
               <button
                 key={item}
                 onClick={() => handleNavClick(item.toLowerCase())}
@@ -43,12 +45,6 @@ export function Navbar() {
                 {item}
               </button>
             ))}
-             <button
-                onClick={() => handleNavClick('contact')}
-                className="text-stone-600 hover:text-emerald-900 transition-colors font-sans text-sm tracking-wide uppercase bg-transparent border-none cursor-pointer"
-              >
-                Contact
-              </button>
             <a 
               href="https://wa.me/919831574424?text=Hi%2C%20I%20would%20like%20to%20place%20an%20order."
               target="_blank"
@@ -81,7 +77,7 @@ export function Navbar() {
         className="md:hidden overflow-hidden bg-stone-50 border-b border-stone-200"
       >
         <div className="px-4 pt-4 pb-8 space-y-2 flex flex-col items-center">
-          {['Story', 'Products', 'Testimonials', 'Contact'].map((item) => (
+          {NAV_ITEMS.map((item) => (
              <button
               key={item}
               onClick={() => handleNavClick(item.toLowerCase())}
