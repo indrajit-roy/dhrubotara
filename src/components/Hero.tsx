@@ -1,5 +1,5 @@
 "use client";
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 export function Hero() {
   return (
@@ -9,17 +9,17 @@ export function Hero() {
 
       {/* Background Elements */}
       <div className="absolute inset-0 z-0 overflow-hidden">
-        <motion.div 
-          animate={{ 
+        <motion.div
+          animate={{
             scale: [1, 1.1, 1],
-            opacity: [0.3, 0.5, 0.3] 
+            opacity: [0.3, 0.5, 0.3],
           }}
-          transition={{ 
-            duration: 10, 
+          transition={{
+            duration: 10,
             repeat: Infinity,
-            ease: "easeInOut" 
+            ease: "easeInOut",
           }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] md:w-[800px] md:h-[800px] bg-emerald-900/5 rounded-full blur-3xl" 
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] md:w-[800px] md:h-[800px] bg-emerald-900/5 rounded-full blur-3xl"
         />
         <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-b from-transparent via-white/50 to-[#F5F5F0]" />
       </div>
@@ -37,15 +37,19 @@ export function Hero() {
           </p>
           <div className="h-px w-8 md:w-12 bg-emerald-900/30" />
         </motion.div>
-        
+
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-9xl text-emerald-950 mb-8 md:mb-12 leading-[1.1] md:leading-[1.1]"
+          className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-5xl text-emerald-950 mb-8 md:mb-12 leading-[1.1] md:leading-[1.1]"
         >
-          Authentic <span className="italic font-light">Natural</span> <br /> 
-          Remedies <span className="text-4xl md:text-6xl align-middle text-emerald-900/40">&</span> <br />
+          Authentic <span className="italic font-light">Natural</span> <br />
+          Remedies{" "}
+          <span className="text-4xl md:text-6xl align-middle text-emerald-900/40">
+            &
+          </span>{" "}
+          <br />
           Artisanal Foods
         </motion.h1>
 
@@ -57,9 +61,6 @@ export function Hero() {
         >
           <p className="text-emerald-900/80 font-serif italic text-xl md:text-2xl">
             From the heart of Bengal
-          </p>
-          <p className="text-stone-600 font-sans text-base md:text-lg max-w-2xl mx-auto leading-relaxed px-4">
-            Nature heals. Its magic works miracles when used in the right measure.
           </p>
         </motion.div>
       </div>
