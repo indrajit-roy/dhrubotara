@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useProducts } from '@/lib/useProducts';
 import { useTestimonials } from '@/lib/useTestimonials';
@@ -13,7 +13,7 @@ import { storage, isFirebaseConfigured } from '@/lib/firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 export default function AdminDashboard() {
-  const { user, signOut } = useAuth();
+  const { user, signOut, isAdmin, loading: authLoading } = useAuth();
   const { products, loading: pLoading, saveProduct, deleteProduct } = useProducts();
   const { testimonials, loading: tLoading, saveTestimonial, deleteTestimonial } = useTestimonials();
   
@@ -32,16 +32,27 @@ export default function AdminDashboard() {
 
   // Simple protection: Check mock auth or real auth
   // In Next.js, localStorage isn't available on server, so check window existence or use useEffect
-  // But since we are "use client", it's fine, but initial render might differ.
-  // Best to put this check in useEffect to avoid hydration mismatch, or just accept it for now.
   let isMockAuth = false;
   if (typeof window !== 'undefined') {
       isMockAuth = !isFirebaseConfigured && localStorage.getItem('mock_admin_logged_in') === 'true';
   }
-  
-  if (!user && !isMockAuth && typeof window !== 'undefined') {
-    // In a real app we'd redirect
-    // router.push('/admin'); // This causes loop if not careful, maybe handle in useEffect
+
+  useEffect(() => {
+    if (authLoading) return;
+
+    if (isMockAuth) return;
+
+    if (!user || !isAdmin) {
+      router.push('/admin');
+    }
+  }, [user, isAdmin, authLoading, isMockAuth, router]);
+
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-stone-50">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-900"></div>
+      </div>
+    );
   }
 
   const handleLogout = async () => {

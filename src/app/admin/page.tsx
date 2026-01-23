@@ -8,6 +8,8 @@ import { motion } from 'framer-motion';
 import { Phone, Lock, ArrowRight, CheckCircle2, AlertCircle } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 
+import { verifyAdmin } from '@/app/actions/auth';
+
 export default function AdminLogin() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [otp, setOtp] = useState('');
@@ -16,14 +18,14 @@ export default function AdminLogin() {
   const [error, setError] = useState('');
   const [confirmationResult, setConfirmationResult] = useState<ConfirmationResult | null>(null);
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, isAdmin, loading: authLoading } = useAuth();
 
   // Redirect if already logged in
   useEffect(() => {
-    if (user) {
+    if (!authLoading && user && isAdmin) {
       router.push('/admin/dashboard');
     }
-  }, [user, router]);
+  }, [user, isAdmin, authLoading, router]);
 
   const setupRecaptcha = () => {
     if (!auth) return;
@@ -52,11 +54,19 @@ export default function AdminLogin() {
     }
 
     try {
+      // Format phone number: Ensure it has country code if missing
+      const formattedNumber = phoneNumber.startsWith('+') ? phoneNumber : `+91${phoneNumber}`;
+
+      // 1. Verify if this number is an admin BEFORE sending OTP
+      // This runs on the server, so the list remains hidden
+      const isAuthorized = await verifyAdmin(formattedNumber);
+      if (!isAuthorized) {
+        throw new Error("Unauthorized Access. This phone number is not an admin.");
+      }
+
       setupRecaptcha();
       const appVerifier = window.recaptchaVerifier;
       if (auth && appVerifier) {
-         // Format phone number: Ensure it has country code if missing (Simple assumption)
-         const formattedNumber = phoneNumber.startsWith('+') ? phoneNumber : `+91${phoneNumber}`;
          const result = await signInWithPhoneNumber(auth, formattedNumber, appVerifier);
          setConfirmationResult(result);
          setStep('otp');
