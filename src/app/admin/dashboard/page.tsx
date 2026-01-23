@@ -270,7 +270,7 @@ export default function AdminDashboard() {
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
                             <div className="h-10 w-10 shrink-0 relative">
-                              <Image className="rounded-sm object-cover bg-stone-200" src={product.image} alt="" width={40} height={40} />
+                              <Image className="rounded-sm object-cover bg-stone-200" src={product.image} alt="" fill sizes="40px" />
                             </div>
                             <div className="ml-4">
                               <div className="text-sm font-medium text-stone-900">{product.name}</div>
@@ -463,7 +463,7 @@ export default function AdminDashboard() {
                         <label className="block text-sm font-medium text-stone-700 mb-1">Image</label>
                         <div className="flex items-center space-x-4">
                             <div className="relative h-16 w-16">
-                                <Image src={editingProduct.image} alt="Preview" className="object-cover rounded-sm bg-stone-100" width={64} height={64} />
+                                <Image src={editingProduct.image} alt="Preview" className="object-cover rounded-sm bg-stone-100" fill sizes="64px" />
                             </div>
                             <button 
                                 type="button"
